@@ -1,0 +1,10 @@
+http://www.gamedev.net/topic/656418-fps-camera-in-glfw-has-noticable-renderinput-lag/
+
+http://www.gamedev.net/topic/381872-glfw-mouse-input/
+
+http://www.opengl-tutorial.org/beginners-tutorials/tutorial-6-keyboard-and-mouse/
+
+http://www.lighthouse3d.com/tutorials/glut-tutorial/keyboard-example-moving-around-the-world/
+
+http://www.lighthouse3d.com/tutorials/glut-tutorial/mouse-putting-it-all-together/
+
