@@ -4,11 +4,12 @@
 #include <OpenGL/glu.h>
 #include <GL/glut.h>
 
-#define DEBUG 0
+#define MAIN_DEBUG 0
 #define GLM_FORCE_RADIANS
 #include "glm/glm.hpp"
-
 using namespace glm;
+
+#include "room.hpp"
 
 vec3 cameraPos = vec3 (0.0f, 0.0f, -1.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
@@ -23,6 +24,8 @@ float planeScale = 10.0f;
 
 GLFWwindow* window;
 double windowSizeX = 800, windowSizeY = 600;
+
+RoomNode *rooms = NULL;
 
 void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -60,7 +63,7 @@ void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 			break;
 	}
 
-#if DEBUG
+#if MAIN_DEBUG
 	printf("Right: {%f, %f, %f}\n", right.x, right.y, right.z);
 #endif
 }
@@ -91,8 +94,6 @@ void computeVectorsFromInputs(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glutSolidTeapot (0.3);
-
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective (45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
@@ -103,46 +104,33 @@ void computeVectorsFromInputs(void)
 			direction.x, direction.y, direction.z,           
 			cameraUp.x, cameraUp.y, cameraUp.z                
 			);
-#if DEBUG
-	printf("Cursor position (%f, %f)\n", xpos, ypos);
+#if MAIN_DEBUG
+	printf("\nCursor position (%f, %f)\n", xpos, ypos);
 	printf("H_Angle: %f V_Angle %f\n", horizontalAngle, verticalAngle);
 	printf("Camera position: {%f, %f, %f}\n", cameraPos.x, cameraPos.y, cameraPos.z);
 	printf("Camera front: {%f, %f, %f\n", cameraTarget.x, cameraTarget.y, cameraTarget.z);
-	printf("Camera Direction: {%f, %f, %f}\n\n", direction.x, direction.y, direction.z);
+	printf("Camera Direction: {%f, %f, %f}\n", direction.x, direction.y, direction.z);
 #endif
 }
 
 void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	computeVectorsFromInputs();
-
 	glColor3f(0.7, 0.7, 0.7);
 
-	static GLfloat vertices[] = {
-		-planeScale, -1.0f, -planeScale, 
-		planeScale, -1.0f, -planeScale, 
-		planeScale, -1.0f, planeScale, 
-		-planeScale, -1.0f, planeScale
-	};
-	static GLfloat colors[] = {
-		1.0, 1.0, 1.0, 
-		1.0, 1.0, 1.0,
-		1.0, 1.0, 1.0, 
-		1.0, 1.0, 1.0
-
-	};
+	computeVectorsFromInputs();
 
 	//ativa arrays que serão usados
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	//associa dados aos arrays
-	glColorPointer (3, GL_FLOAT, 0, colors);
-	glVertexPointer (3, GL_FLOAT, 0, vertices);
+	vec3 roomCenter = vec3 (0.0f, 0.0f, 0.0f);
+	Room room1 = createRoom (roomCenter, 5.0f);
+	RoomNode rooms;
+	rooms.room = room1;
+	drawRoom (room1);
 
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	//glutSolidTeapot (0.3);
 
 	glFlush();
 }
@@ -152,8 +140,6 @@ void init(void)
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
 	//MATERIAL
-	//define características para aparência do material	
-	//exercício: testar exemplos da seção 
 	//Changing Material Properties, do Red Book (usar luz branca)
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat mat_shininess[] = { 50.0 };
@@ -215,8 +201,10 @@ int main (int argc, char** argv)
 		return -1;
 	}
 
+#if MAIN_DEBUG
 	// Prints the OpenGL Version on the terminal
-	//printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
+	printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
+#endif
 
 	init();
 
