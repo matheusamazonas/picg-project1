@@ -2,14 +2,26 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <OpenGL/glu.h>
-#include <GL/glut.h>
+//#include <GL/glut.h>
 
 #define MAIN_DEBUG 0
+#define LIGHT 0
+
 #define GLM_FORCE_RADIANS
 #include "glm/glm.hpp"
 using namespace glm;
 
+#ifndef WALL
+#include "wall.hpp"
+#endif
+
+#ifndef ROOM
 #include "room.hpp"
+#endif
+
+#ifndef GRID
+#include "grid.hpp"
+#endif
 
 vec3 cameraPos = vec3 (0.0f, 0.0f, -1.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
@@ -20,12 +32,12 @@ float mouseSpeed = 0.0055f;
 float horizontalAngle = 3.14f;	   	 // Initial horizontal angle : toward -Z
 float verticalAngle = 0.0f;			 // Initial vertical angle : none
 float deltaTime;
-float planeScale = 10.0f;
+float roomSize = 2.0f;
 
 GLFWwindow* window;
 double windowSizeX = 800, windowSizeY = 600;
 
-RoomNode *rooms = NULL;
+GridNode grid;
 
 void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -123,12 +135,8 @@ void display(void)
 	//ativa arrays que serão usados
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
-
-	vec3 roomCenter = vec3 (0.0f, 0.0f, 0.0f);
-	Room room1 = createRoom (roomCenter, 5.0f);
-	RoomNode rooms;
-	rooms.room = room1;
-	drawRoom (room1);
+	
+	drawGrid(&grid);
 
 	//glutSolidTeapot (0.3);
 
@@ -139,6 +147,9 @@ void init(void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
+	grid = createGrid(10, roomSize);
+
+#if LIGHT
 	//MATERIAL
 	//Changing Material Properties, do Red Book (usar luz branca)
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -150,17 +161,18 @@ void init(void)
 
 	// Light
 	GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
-	GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat light_diffuse[] = {0.7, 0.7, 0.7, 1.0};
 	GLfloat light_ambient[] = {0.3, 0.3, 0.3, 1.0};
 	glLightfv (GL_LIGHT0, GL_POSITION, light_position);
 	glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+#endif
 
 	glEnable(GL_DEPTH_TEST);
 
-	glShadeModel (GL_SMOOTH);
+	//glShadeModel (GL_SMOOTH);
 }
 
 int main (int argc, char** argv) 
