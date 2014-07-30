@@ -27,11 +27,11 @@ using namespace glm;
 #include "model.hpp"
 #endif
 
-vec3 cameraPos = vec3 (0.0f, 0.0f, -1.0f);
+vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
 vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
 
-float camSpeed = 0.045f;
+float camSpeed = 0.1f;
 float mouseSpeed = 0.0055f;
 float horizontalAngle = 3.14f;	   	 // Initial horizontal angle : toward -Z
 float verticalAngle = 0.0f;			 // Initial vertical angle : none
@@ -113,7 +113,7 @@ void computeVectorsFromInputs(void)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective (45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+	gluPerspective (45.0f, 4.0f / 3.0f, 0.1f, 200.0f);
 
 	vec3 direction = cameraPos + cameraTarget;
 	gluLookAt(                       
@@ -143,9 +143,9 @@ void display(void)
 	
 	//drawGrid(&grid);
 
-	glutSolidTeapot (0.3);
+	//glutSolidTeapot (0.3);
 
-	//drawModel (model);
+	drawModel (model);
 
 	glFlush();
 }
@@ -158,7 +158,7 @@ void init(void)
 
 	// Reading Models
 	const char *modelPath = "models/teddy.obj";
-	model = readModel (modelPath);
+	model = readModel (modelPath, 0.1f);
 
 #if LIGHT
 	//MATERIAL
@@ -183,7 +183,7 @@ void init(void)
 
 	glEnable(GL_DEPTH_TEST);
 
-	//glShadeModel (GL_SMOOTH);
+	glShadeModel (GL_SMOOTH);
 }
 
 int main (int argc, char** argv) 

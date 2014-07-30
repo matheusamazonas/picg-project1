@@ -13,6 +13,7 @@ typedef struct model
 	GLuint *faces;
 	long vertexCount;
 	long facesCount;
+	float scale;
 } Model;
 
 
@@ -59,22 +60,30 @@ void addVertice (Model *model, float x, float y, float z, long position)
 			model -> vertices = ver;
 		}
 	}
+	
+	ver[position]   = (GLfloat) x * model -> scale;
+	ver[position+1] = (GLfloat) y * model -> scale;
+	ver[position+2] = (GLfloat) z * model -> scale;
+	/*
 	ver[position]   = (GLfloat) x;
 	ver[position+1] = (GLfloat) y;
 	ver[position+2] = (GLfloat) z;
+	*/
+
 #if MODEL_DEBUG
 	printf("Ver: % .3f % .3f % .3f at pos %li VCount:%li\n", x, y, z, position, model -> vertexCount);
 #endif
 }
 
 
-Model readModel (const char *filePath)
+Model readModel (const char *filePath, float scale)
 {
 	Model model;
 	model.vertices = NULL;
 	model.faces = NULL;
 	model.vertexCount = 0;
 	model.facesCount = 0;
+	model.scale = scale;
 
 	FILE *fptr;
 
@@ -119,12 +128,36 @@ Model readModel (const char *filePath)
 
 void drawModel (Model model)
 {
-	/*
-	GLfloat *vertices = model.vertices;	
+	GLfloat vertices[3][3];
+	GLuint *faces = model.faces;
 
-	glVertexPointer (3, GL_FLOAT, 0, vertices);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	*/
-
-}	
+	for (int f = 0; f < model.facesCount; f += 3)
+	{
+		for (int v = 0; v < 3; v++)
+		{
+			int index = (faces[f+v]-1) * 3;
+			vertices[v][0] = model.vertices[index];
+			vertices[v][1] = model.vertices[index+1];
+			vertices[v][2] = model.vertices[index+2];
+		}
+		glVertexPointer (3, GL_FLOAT, 0, vertices);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+#if MODEL_DEBUG
+		printf("Drawing vertices at face %li:\nv%i: %f %f %f\nv%i: %f %f %f\nv%i: %f %f %f\n",
+				f,
+				faces[f+0],
+				vertices[0][0],
+				vertices[0][1],
+				vertices[0][2],
+				faces[f+1],
+				vertices[1][0],
+				vertices[1][1],
+				vertices[1][2],
+				faces[f+2],
+				vertices[2][0],
+				vertices[2][1],
+				vertices[2][2]);
+#endif
+	}
+}
 #endif
