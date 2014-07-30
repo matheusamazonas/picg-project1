@@ -2,10 +2,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <OpenGL/glu.h>
-//#include <GL/glut.h>
+#include <GL/glut.h>
 
 #define MAIN_DEBUG 0
-#define LIGHT 0
+#define LIGHT 1
 
 #define GLM_FORCE_RADIANS
 #include "glm/glm.hpp"
@@ -23,6 +23,10 @@ using namespace glm;
 #include "grid.hpp"
 #endif
 
+#ifndef MODEL
+#include "model.hpp"
+#endif
+
 vec3 cameraPos = vec3 (0.0f, 0.0f, -1.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
 vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
@@ -38,6 +42,7 @@ GLFWwindow* window;
 double windowSizeX = 800, windowSizeY = 600;
 
 GridNode grid;
+Model model;
 
 void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -136,9 +141,11 @@ void display(void)
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	
-	drawGrid(&grid);
+	//drawGrid(&grid);
 
-	//glutSolidTeapot (0.3);
+	glutSolidTeapot (0.3);
+
+	//drawModel (model);
 
 	glFlush();
 }
@@ -148,6 +155,10 @@ void init(void)
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
 	grid = createGrid(10, roomSize);
+
+	// Reading Models
+	const char *modelPath = "models/teddy.obj";
+	model = readModel (modelPath);
 
 #if LIGHT
 	//MATERIAL

@@ -19,15 +19,15 @@ void addRoom (GridNode*, Room);
 GridNode (createGrid) (int elements, float roomSize)
 {
 	int dimension = ceil(sqrt((float)elements));
+	int elementsCreated = 0;
+	vec3 gridStart = vec3 (0.0f, 0.0f, 0.0f);
 
 	GridNode grid;
 	grid.next = NULL;
 
-	int elementsCreated = 0;
-	vec3 gridStart = vec3 (0.0f, 0.0f, 0.0f);
-
 	GridNode current = grid;
 	current.next = NULL;
+	
 	for (int i = 0; i < dimension ; i++)
 	{
 		for (int j = 0; j < dimension & elementsCreated < elements; j++)
