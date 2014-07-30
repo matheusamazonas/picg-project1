@@ -42,7 +42,7 @@ void drawWall (Wall wall)
 			offsetX = (wall.size) / 2;
 			offsetY = (wall.size) / 2;
 			spin = -1;
-			color = vec3 (0.2f, 0.2f, 0.8f);
+			color = vec3 (0.2f, 0.8f, 0.2f);
 			break;
 	}
 

@@ -4,9 +4,6 @@
 #include <OpenGL/glu.h>
 #include <GL/glut.h>
 
-#define MAIN_DEBUG 0
-#define LIGHT 1
-
 #define GLM_FORCE_RADIANS
 #include "glm/glm.hpp"
 using namespace glm;
@@ -27,11 +24,14 @@ using namespace glm;
 #include "model.hpp"
 #endif
 
+#define MAIN_DEBUG 0
+#define LIGHT 1
+
 vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
 vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
 
-float camSpeed = 0.1f;
+float camSpeed = 0.3f;
 float mouseSpeed = 0.0055f;
 float horizontalAngle = 3.14f;	   	 // Initial horizontal angle : toward -Z
 float verticalAngle = 0.0f;			 // Initial vertical angle : none
@@ -138,8 +138,9 @@ void display(void)
 	computeVectorsFromInputs();
 
 	//ativa arrays que serão usados
-	glEnableClientState(GL_COLOR_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
 	
 	//drawGrid(&grid);
 
@@ -154,11 +155,11 @@ void init(void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
-	grid = createGrid(10, roomSize);
+	//grid = createGrid(10, roomSize);
 
 	// Reading Models
-	const char *modelPath = "models/teddy.obj";
-	model = readModel (modelPath, 0.1f);
+	const char *modelPath = "models/teapot.obj";
+	model = readModel (modelPath, 1.0f);
 
 #if LIGHT
 	//MATERIAL
