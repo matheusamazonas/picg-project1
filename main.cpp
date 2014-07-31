@@ -1,37 +1,10 @@
-#include <stdio.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <OpenGL/glu.h>
-#include <GL/glut.h>
-
-#define GLM_FORCE_RADIANS
-#include "glm/glm.hpp"
-using namespace glm;
-
-#ifndef WALL
-#include "wall.hpp"
-#endif
-
-#ifndef ROOM
-#include "room.hpp"
-#endif
-
-#ifndef GRID
-#include "grid.hpp"
-#endif
-
-#ifndef MODEL
-#include "model.hpp"
-#endif
-
-#define MAIN_DEBUG 0
-#define LIGHT 1
+#include "common.hpp"
 
 vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
 vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
 
-float camSpeed = 0.3f;
+float camSpeed = 0.2f;
 float mouseSpeed = 0.0055f;
 float horizontalAngle = 3.14f;	   	 // Initial horizontal angle : toward -Z
 float verticalAngle = 0.0f;			 // Initial vertical angle : none
@@ -137,16 +110,11 @@ void display(void)
 
 	computeVectorsFromInputs();
 
-	//ativa arrays que serão usados
-	//glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	
-	//drawGrid(&grid);
+	drawGrid(&grid);
 
 	//glutSolidTeapot (0.3);
 
-	drawModel (model);
+	//drawModel (model);
 
 	glFlush();
 }
@@ -155,7 +123,10 @@ void init(void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
-	//grid = createGrid(10, roomSize);
+	grid = createGrid(10, roomSize);
+
+	// Textures
+	configTextMode();
 
 	// Reading Models
 	const char *modelPath = "models/teapot.obj";
@@ -173,7 +144,7 @@ void init(void)
 
 	// Light
 	GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
-	GLfloat light_diffuse[] = {0.7, 0.7, 0.7, 1.0};
+	GLfloat light_diffuse[] = {0.9, 0.5, 0.5, 1.0};
 	GLfloat light_ambient[] = {0.3, 0.3, 0.3, 1.0};
 	glLightfv (GL_LIGHT0, GL_POSITION, light_position);
 	glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
@@ -195,12 +166,6 @@ int main (int argc, char** argv)
 		printf("Error while loading GLFW\n");
 		return -1;
 	}
-
-	// Forcing the applicaiton to run OpenGL 4.0 or higher
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(windowSizeX, windowSizeY, "PICG Project 1", NULL, NULL);

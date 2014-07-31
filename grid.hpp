@@ -6,7 +6,6 @@
 #endif
 
 #define GRID_DEBUG 0
-#include <math.h>
 
 typedef struct gridNode 
 {
@@ -18,7 +17,7 @@ void addRoom (GridNode*, Room);
 
 GridNode (createGrid) (int elements, float roomSize)
 {
-	int dimension = ceil(sqrt((float)elements));
+	int dimension = ceil(sqrt(elements));
 	int elementsCreated = 0;
 	vec3 gridStart = vec3 (0.0f, 0.0f, 0.0f);
 

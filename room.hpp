@@ -1,10 +1,6 @@
 #ifndef ROOM
 #define ROOM
 
-#ifndef WALL
-#include "wall.hpp"
-#endif
-
 #define ROOM_DEBUG 0
 
 typedef struct

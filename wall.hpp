@@ -22,8 +22,18 @@ void drawWall (Wall wall)
 	vec3 center = wall.center;
 	float offsetX = 0, offsetY = 0, offsetZ = 0;
 	int spin;
-	vec3 color; 
+	vec3 color;
 
+	glEnable(GL_TEXTURE_2D);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_COLOR_ARRAY); 
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, grassTextName);
+
+	GLfloat texels[] = {0.0, 0.0, 0.0, 1.0, 1.0, 1,0, 1.0, 0.0};
+	
 	switch (wall.orientation)
 	{	
 		case 0:
@@ -61,12 +71,15 @@ void drawWall (Wall wall)
 	};
 
 	//associa dados aos arrays
-	glColorPointer (3, GL_FLOAT, 0, colors);
+	//glColorPointer (3, GL_FLOAT, 0, colors);
 	glVertexPointer (3, GL_FLOAT, 0, vertices);
+	glTexCoordPointer (2, GL_FLOAT, 0, texels);
 
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-	//glDisableClientState(GL_COLOR_ARRAY);
+	//glDisableClientState (GL_COLOR_ARRAY);
+	glDisableClientState (GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 #if WALL_DEBUG
 	printf("Wall color: %f %f %f\n", color.x, color.y, color.z);
