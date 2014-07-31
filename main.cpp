@@ -4,7 +4,7 @@ vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
 vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
 
-float camSpeed = 0.2f;
+float camSpeed = 0.05f;
 float mouseSpeed = 0.0055f;
 float horizontalAngle = 3.14f;	   	 // Initial horizontal angle : toward -Z
 float verticalAngle = 0.0f;			 // Initial vertical angle : none
@@ -15,7 +15,6 @@ GLFWwindow* window;
 double windowSizeX = 800, windowSizeY = 600;
 
 GridNode grid;
-Model model;
 
 void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -114,7 +113,7 @@ void display(void)
 
 	//glutSolidTeapot (0.3);
 
-	//drawModel (model);
+	//drawModel ();
 
 	glFlush();
 }
@@ -129,8 +128,13 @@ void init(void)
 	configTextMode();
 
 	// Reading Models
-	const char *modelPath = "models/teapot.obj";
-	model = readModel (modelPath, 1.0f);
+	const char *modelPath = "models/spider/spider01.obj";
+
+	//const char *modelPath = "models/teapot.obj";
+
+	//model = readModel (modelPath, 1.0f);
+
+
 
 #if LIGHT
 	//MATERIAL

@@ -20,37 +20,30 @@ void drawWall (Wall wall)
 	vec3 center = wall.center;
 	float offsetX = 0, offsetY = 0, offsetZ = 0;
 	int spin;
-	vec3 color;
 
-	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//glEnableClientState(GL_COLOR_ARRAY); 
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	GLfloat *texels;
+	GLfloat grassTexels[] = {0.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.0, 0.5};
+	GLfloat wallTexels[]  = {0.0, 0.5, 1.0, 0.5, 1.0, 0.0, 0.0, 0.0};
 
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-	glBindTexture(GL_TEXTURE_2D, grassTextName);
-
-	GLfloat texels[] = {0.0, 0.0, 0.0, 1.0, 1.0, 1,0, 1.0, 0.0};
-	
 	switch (wall.orientation)
 	{	
 		case 0:
+			texels = grassTexels;
 			offsetX = (wall.size) / 2;
 			offsetZ = (wall.size) / 2;
 			spin = 1;
-			color = vec3 (0.8f, 0.2f, 0.2f);
 			break;		
 		case 1:
+			texels = wallTexels;
 			offsetY = (wall.size) / 2;
 			offsetZ = (wall.size) / 2;
 			spin = 1;
-			color = vec3 (0.2f, 0.2f, 0.8f);
 			break;		
 		case 2:
+			texels = wallTexels;
 			offsetX = (wall.size) / 2;
 			offsetY = (wall.size) / 2;
 			spin = -1;
-			color = vec3 (0.2f, 0.8f, 0.2f);
 			break;
 	}
 
@@ -61,23 +54,21 @@ void drawWall (Wall wall)
 		center.x - offsetX, center.y - offsetY * spin,	center.z + offsetZ
 	};
 
-	GLfloat colors[] = {
-		color.x, color.y, color.z, 
-		color.x, color.y, color.z,	
-		color.x, color.y, color.z, 
-		color.x, color.y, color.z 	
-	};
+	glEnable(GL_TEXTURE_2D);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
 
 	//associa dados aos arrays
-	//glColorPointer (3, GL_FLOAT, 0, colors);
-	glVertexPointer (3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer (2, GL_FLOAT, 0, texels);
+	glVertexPointer (3, GL_FLOAT, 0, vertices);
 
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-	//glDisableClientState (GL_COLOR_ARRAY);
 	glDisableClientState (GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisable(GL_TEXTURE_2D);
 
 #if WALL_DEBUG
 	printf("Wall color: %f %f %f\n", color.x, color.y, color.z);

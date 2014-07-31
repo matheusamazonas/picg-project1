@@ -13,9 +13,13 @@ typedef struct gridNode
 
 void addRoom (GridNode*, Room);
 
+vec3 center;
+float planeSize = 100.0f;
+
 GridNode (createGrid) (int elements, float roomSize)
 {
 	int dimension = ceil(sqrt(elements));
+	center = vec3 (dimension/2, -0.1f, dimension/2);
 	int elementsCreated = 0;
 	vec3 gridStart = vec3 (0.0f, 0.0f, 0.0f);
 
@@ -66,8 +70,24 @@ void addRoom (GridNode *grid, Room room)
 #endif	
 }
 
+void drawPlane()
+{
+	GLfloat vertices[12] = {
+		center.x - planeSize, center.y, center.z - planeSize,
+		center.x + planeSize, center.y, center.z - planeSize,
+		center.x + planeSize, center.y, center.z + planeSize,
+		center.x - planeSize, center.y, center.z + planeSize 
+	};
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer (3, GL_FLOAT, 0, vertices);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	glDisableClientState (GL_VERTEX_ARRAY);
+}
+
 void drawGrid (GridNode *grid)
 {
+	drawPlane();
 	GridNode *currentNode = grid -> next;
 	while (currentNode != NULL)
 	{

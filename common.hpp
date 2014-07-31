@@ -5,6 +5,7 @@
 #include <GL/glut.h>
 #include <math.h>
 #include "glm/glm.hpp"
+#include <SOIL.h>
 using namespace glm;
 
 #define GLM_FORCE_RADIANS
@@ -13,13 +14,10 @@ using namespace glm;
 #define WALL_DEBUG 		0
 #define ROOM_DEBUG 		0
 #define GRID_DEBUG 		0
-#define MODEL_DEBUG 	0
-#define TEXTURE_DEBUG 	1
+#define MODEL_DEBUG 	1
+#define TEXTURE_DEBUG 	0
 
 #define LIGHT 			0
-
-#define IMAGE_HEIGHT 128
-#define IMAGE_WIDTH 128
 
 #ifndef TEXTURE
 #include "texture.hpp"
