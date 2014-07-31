@@ -5,208 +5,282 @@
 #include <stdio.h>
 using namespace std;
 
-typedef struct model
+typedef struct 
 {
 	GLfloat *vertices; 
-	GLuint *faces;
+	//GLuint *faces;
 	GLfloat *normals;
-	GLfloat *textCoor; 
+	GLfloat *texCoord; 
 	long vertexCount;
-	long facesCount;
+	//long facesCount;
 	long normalsCount;
 	long textCoorCount;
 	float scale;
+	float range;
 } Model;
 
-void addTextCoor (Model *model, float u, float t, long position)
-{
-	GLfloat *textCoor = model -> textCoor;
+Model model;
+FILE *fptr;
+GLfloat *rawVertex;
+GLfloat *rawNormals;
+GLfloat *rawTexCoord;
 
-	if (position >= model -> textCoorCount - 3)
+GLfloat *finalVertex;
+GLfloat *finalNormals;
+GLfloat *finalTexCoord;
+
+void addVertice (long *size, float x, float y, float z, long position)
+{
+	position = position * 3;
+//	printf("Entered to insert %f %f %f at %li with size %li\n", x, y, z, position, *size);
+	if (position  >= *size - 3)
 	{
-		model -> textCoorCount += 100;
-		textCoor = (GLfloat*) realloc (textCoor, sizeof(GLfloat) * (model -> textCoorCount));
-		if (textCoor == NULL)
+		*size += 100;
+		//printf("Realocating to %li\n", *size);
+		rawVertex = (GLfloat*) realloc (rawVertex, sizeof(GLfloat) * (*size));
+		if (rawVertex == NULL)
 		{
 			printf("Error trying to reallocate memory\n");
 		}
-		else
-		{
-			model -> textCoor = textCoor;
-		}
-		textCoor[position] 	 = (GLfloat) u;
-		textCoor[position+1] = (GLfloat) t;
-#if MODEL_DEBUG
-	printf("Face: % .3f % .3f at pos %li TCCount:%li\n", u, t, position, model -> textCoorCount);
-#endif
 	}
-}
 
-void addFace (Model *model, float x, float y, float z, long position)
-{
-	GLuint *fac = model -> faces;
-	
-	if (position >= model -> facesCount - 3)
-	{
-		model -> facesCount += 100;
-		fac = (GLuint*) realloc (fac, sizeof(GLuint) * (model -> facesCount));
-		if (fac == NULL)
-		{
-			printf("Error trying to reallocate memory\n");
-		}
-		else
-		{
-			model -> faces = fac;
-		}
-	}
-	fac[position]   = (GLuint) x;
-	fac[position+1] = (GLuint) y;
-	fac[position+2] = (GLuint) z;
+	rawVertex[position]   = (GLfloat) x * model.scale;
+	rawVertex[position+1] = (GLfloat) y * model.scale;
+	rawVertex[position+2] = (GLfloat) z * model.scale;
 #if MODEL_DEBUG
-	printf("Face: % .3f % .3f % .3f at pos %li FCount:%li\n", x, y, z, position, model -> facesCount);
+	//printf("Ver: %f %f %f at pos %li Size:%li\n", 
+	//		rawVertex[position], rawVertex[position+1], rawVertex[position+2], position, *size);
 #endif
 }
 
-
-void addVertice (Model *model, float x, float y, float z, long position)
+void addNormal (long *size, float x, float y, float z, long position)
 {
-	GLfloat *ver = model -> vertices;
-
-	if (position >= model -> vertexCount - 3)
+	position = position * 3;
+	if (position >= *size - 3)
 	{
-		model -> vertexCount += 100;
-		ver = (GLfloat*) realloc (ver, sizeof(GLfloat) * (model -> vertexCount));
-		if (ver == NULL)
+		*size += 100;
+		rawNormals = (GLfloat*) realloc (rawNormals, sizeof(GLfloat) * (*size));
+		if (rawNormals == NULL)
+		{
+			printf("Error trying to reallocate memory\n");
+		}
+	}
+
+	rawNormals[position]   = (GLfloat) x;
+	rawNormals[position+1] = (GLfloat) y;
+	rawNormals[position+2] = (GLfloat) z;
+#if MODEL_DEBUG
+	//printf("Nor: % .3f % .3f % .3f at pos %li NSize:%li\n", x, y, z, position, *size);
+#endif
+}
+
+
+void addTexCoord (long *size, float u, float t, long position)
+{
+	position = position * 3;
+	if (position >= *size - 3)
+	{
+		*size += 100;
+		rawTexCoord = (GLfloat*) realloc (rawTexCoord, sizeof(GLfloat) * (*size));
+		if (rawTexCoord == NULL)
+		{
+			printf("Error trying to reallocate memory\n");
+		}
+	}
+	
+	rawTexCoord[position] 	 = (GLfloat) u;
+	rawTexCoord[position+1] = (GLfloat) t;
+#if MODEL_DEBUG
+	//printf("TexCoord: % .3f % .3f at pos %li TCSize:%li\n", u, t, position, *size);
+#endif
+}
+
+void addFace (int v1, int v2, int v3, int n1, int n2, int n3, int t1, int t2, int t3, int position, long *size)
+{
+	//GLfloat *vertex = model.vertices;
+	//GLfloat *normals = model.normals;
+	//GLfloat *tex = model.texCoord;
+
+	printf("Setting face %i size: %li v1: %i v2: %i v3: %i\n", position, *size, v1, v2, v3);
+	position = position * 3;
+	if (position >= *size - 3)
+	{	
+		*size += 1000;
+		printf("Realocating final Vertex to %li\n", *size);
+		GLfloat *temp = (GLfloat*) realloc (finalVertex, sizeof(GLfloat) * (*size));
+		//finalVertex = (GLfloat*) realloc (finalVertex, sizeof(GLfloat) * (*size));
+		if (temp == NULL)
 		{
 			printf("Error trying to reallocate memory\n");
 		}
 		else
 		{
-			model -> vertices = ver;
+			finalVertex = temp;
 		}
 	}
-	
-	ver[position]   = (GLfloat) x * model -> scale;
-	ver[position+1] = (GLfloat) y * model -> scale;
-	ver[position+2] = (GLfloat) z * model -> scale;
+
+	v1--;
+	v2--;
+	v3--;
+
+	v1 *= 3;
+	v2 *= 3;
+	v3 *= 3;
+	printf("Here\n");
+	printf("Adding vertice %i: %f %f %f\n",   v1, rawVertex[v1], rawVertex[v1+1], rawVertex[v1+2]);
+	printf("Adding vertice %i: %f %f %f\n",   v2, rawVertex[v2], rawVertex[v2+1], rawVertex[v2+2]);
+	printf("Adding vertice %i: %f %f %f\n\n", v3, rawVertex[v3], rawVertex[v3+1], rawVertex[v3+2]);
+
+	finalVertex[position]    = rawVertex[v1];
+	finalVertex[position+1]  = rawVertex[v1+1];
+	finalVertex[position+2]  = rawVertex[v1+2];
+
+	finalVertex[position+3]  = rawVertex[v2];
+	finalVertex[position+4]  = rawVertex[v2+1];
+	finalVertex[position+5]  = rawVertex[v2+2];
+
+	finalVertex[position+6]  = rawVertex[v3];
+	finalVertex[position+7]  = rawVertex[v3+1];
+	finalVertex[position+8]  = rawVertex[v3+2];
+
+	/*
+	   addVertice (&vertex, size, rawVertex[v1], rawVertex[v1+1], rawVertex[v1+2], position);
+	   addVertice (&vertex, size, rawVertex[v2], rawVertex[v2+1], rawVertex[v2+2], position + 3);
+	   addVertice (&vertex, size, rawVertex[v3], rawVertex[v3+1], rawVertex[v3+2], position + 6);
+
+	   addNormal (normals, size, rawNormals[n1], rawNormals[n1+1], rawNormals[n1+2], position);
+	   addNormal (normals, size, rawNormals[n2], rawNormals[n2+1], rawNormals[n2+2], position + 3);
+	   addNormal (normals, size, rawNormals[n3], rawNormals[n3+1], rawNormals[n3+2], position + 6);
+
+	   addTexCoord (tex, size, rawTexCoord[t1], rawTexCoord[t1+1], position);
+	   addTexCoord (tex, size, rawTexCoord[t2], rawTexCoord[t2+1], position + 2);
+	   addTexCoord (tex, size, rawTexCoord[t3], rawTexCoord[t3+1], position + 4);
+	 */
+
 #if MODEL_DEBUG
-	printf("Ver: % .3f % .3f % .3f at pos %li VCount:%li\n", x, y, z, position, model -> vertexCount);
+	//printf("nv%i: %f %f %f inserted at vertices[%i,%i,%i] and index %i f:%i v:%i\n",
+	//		faces[f+v]+1, vertices[position], vertices[position+1], vertices[position+2],
+	//		position, position+1, position+2, index, f, v);
+	//printf("Face: % .3f % .3f % .3f at pos %li FCount:%li\n", x, y, z, position, model -> facesCount);
 #endif
+}
+
+
+void initialize(const char* filePath, float scale)
+{
+	model.vertices = NULL;
+	//model.faces = NULL;
+	model.normals = NULL;
+	model.texCoord = NULL;
+	model.vertexCount = 0;
+	//model.facesCount = 0;
+	model.normalsCount = 0;
+	model.textCoorCount = 0;
+	model.scale = scale;
+
+	if ((fptr = fopen(filePath, "r")) == NULL)
+	{
+		printf("Error while opening model file %s\n", filePath);
+	}
+
+	rawVertex 	= (GLfloat*) calloc (100, sizeof(GLfloat));
+	rawNormals  = (GLfloat*) calloc (100, sizeof(GLfloat));
+	rawTexCoord = (GLfloat*) calloc (100, sizeof(GLfloat));
+
+	finalVertex   = (GLfloat*) calloc (100, sizeof(GLfloat));
+	finalNormals  = (GLfloat*) calloc (100, sizeof(GLfloat));
+	finalTexCoord = (GLfloat*) calloc (100, sizeof(GLfloat));
+
+	if (rawVertex == NULL | rawNormals == NULL | rawTexCoord == NULL)
+	{
+		printf("Error while allocating memory in model.initialize\n");
+	}
+	printf("Initialization is over\n");
 }
 
 
 Model readModel (const char *filePath, float scale)
 {
-	Model model;
-	model.vertices = NULL;
-	model.faces = NULL;
-	model.normals = NULL;
-	model.textCoor = NULL;
-	model.vertexCount = 0;
-	model.facesCount = 0;
-	model.normalsCount = 0;
-	model.textCoorCount = 0;
-	model.scale = scale;
+	initialize (filePath, scale);
 
-	FILE *fptr;
+	long vc = 0;
+	long fc = 0;
+	long nc = 0;
+	long tc = 0;
 
-	if ((fptr = fopen(filePath, "r")) == NULL)
+	long vSize = 0;
+	long nSize = 0;
+	long tSize = 0;
+
+	char *line = NULL;
+	size_t len = 0;
+
+	while (getline (&line, &len, fptr) != -1)
 	{
-		printf("Error while opening file %s\n", filePath);
-	}
-	else
-	{
-		long vc = 0;
-		long fc = 0;
-		long nc = 0;
-		long tc = 0;
 		float x,y,z;
+		int v1,v2,v3,t1,t2,t3,n1,n2,n3;
 		char id[3];
 
-		model.vertices = (GLfloat*) calloc (100, sizeof(GLfloat));
-		model.faces	   = (GLuint*) calloc (100, sizeof(GLuint));
-		model.normals  = (GLfloat*) calloc (100, sizeof(GLfloat));
-		model.textCoor = (GLfloat*) calloc (100, sizeof(GLfloat));
-
-		while (fscanf (fptr, "%s %f %f %f\n", id, &x, &y, &z) != EOF)
+		if (sscanf (line, "v%c %f %f %f\n", id, &x, &y, &z) > 0)
 		{
-			if (strcmp(id, "v") == 0)
+			//printf("NOT A FACE! %s %f %f %f\n", id, x, y, z);
+			if (strcmp(id, "t") == 0)
 			{
-				addVertice (&model, x, y, z, vc);
-				vc += 3;
+				addTexCoord (&tSize, x, y, tc);
+				tc++;
 			}
-			else if (strcmp(id, "f") == 0)
+			else if (strcmp(id, "n") == 0)
 			{
-				addFace (&model, x, y, z, fc);
-				fc += 3;
+				addNormal (&nSize, x, y, z, nc);
+				nc++;
 			}
-			else if (strcmp(id, "vt") == 0)
+			else 
 			{
-				addTextCoor (&model, x, y, tc);
-				tc += 2;
+				addVertice (&vSize, x, y, z, vc);
+				//printf("After: %f %f %f\n\n", rawVertex[0], rawVertex[1], rawVertex[2]);
+				vc++;
 			}
+
 		}
-		model.vertexCount = vc;
-		model.vertices = (GLfloat*) realloc (model.vertices, sizeof(GLfloat) * model.vertexCount);
-		model.facesCount = fc;
-		model.faces = (GLuint*) realloc (model.faces, sizeof(GLuint) * model.facesCount);
-		model.normalsCount = nc;
-		model.normals = (GLfloat*) realloc (model.normals, sizeof(GLfloat) * model.normalsCount);
-		model.textCoorCount = tc;
-		model.textCoor = (GLfloat*) realloc (model.textCoor, sizeof(GLfloat) * model.textCoorCount);
+		else if (sscanf (line, "f %i/%i/%i %i/%i/%i %i/%i/%i", 
+					&v1,&t1,&n1,&v2,&t2,&n2,&v3,&t3,&n3) > 0)
+		{
+			//printf("A FACE!!!!!:  %s ", line);
+			addFace (v1,v2,v3,n1,n2,n3,t1,t2,t3,fc,&vc);
+			fc++;
+		}
+	}	
+
+	//printf("%s\n", line);
+
+	printf("Finished reading\n");
+	/*model.vertexCount = vc;
+	  model.vertices = (GLfloat*) realloc (model.vertices, sizeof(GLfloat) * model.vertexCount);
+	//model.facesCount = fc;
+	//model.faces = (GLuint*) realloc (model.faces, sizeof(GLuint) * model.facesCount);
+	model.normalsCount = nc;
+	model.normals = (GLfloat*) realloc (model.normals, sizeof(GLfloat) * model.normalsCount);
+	model.textCoorCount = tc;
+	model.texCoord = (GLfloat*) realloc (model.texCoord, sizeof(GLfloat) * model.textCoorCount);*/
 #if MODEL_DEBUG
-		printf("Vertices: %li Faces: %li\n", model.vertexCount, model.facesCount);
+	//printf("Vertices: %li Faces: %li\n", model.vertexCount, model.facesCount);
 #endif
-	}
 
 	fclose(fptr);
 	return model;	
 }
 
-void drawModel (Model model)
+void drawModel ()
 {
-	int vCount = model.facesCount*3;
-	GLfloat vertices[vCount];
-	GLuint *faces = model.faces;
-	//GLfloat normals[model.facesCount];
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	//glEnableClientState(GL_NORMAL_ARRAY);
 
-	for (int f = 0; f < model.facesCount; f += 3)
-	{
-#if MODEL_DEBUG
-		printf("Preparing face face: %i\n", f);
-#endif
-		for (int v = 0; v < 3; v++)
-		{
-			int index = (faces[f+v]-1) * 3;
-			int position = (f+v) * 3;
-			vertices[position]   = model.vertices[index];
-			vertices[position+1] = model.vertices[index+1];
-			vertices[position+2] = model.vertices[index+2];
-#if MODEL_DEBUG
-			printf("nv%i: %f %f %f inserted at vertices[%i,%i,%i] and index %i f:%i v:%i\n",
-					faces[f+v]+1, vertices[position], vertices[position+1], vertices[position+2],
-					position, position+1, position+2, index, f, v);
-#endif			
-		}
-		/*
-		int index = 3*f;
-		vec3 v1 = vec3 (vertices[index], vertices[index+1], vertices[index+2]);
-		vec3 v2 = vec3 (vertices[index+3], vertices[index+4], vertices[index+5]);
-		vec3 v3 = vec3 (vertices[index+6], vertices[index+7], vertices[index+8]);
-		
-		vec3 normal = normalize(cross(v3 - v1, v2 - v1));
-		normals[f] = normal.x;
-		normals[f+1] = normal.y;
-		normals[f+2] = normal.z;
-		*/
-	}
 	//glNormalPointer (GL_FLOAT, 0, normals);
 	//glTextCoorPointer (2, GL_FLOAT, 0, textCoor);
-	glVertexPointer (3, GL_FLOAT, 0, vertices);
-	glDrawArrays(GL_TRIANGLES, 0, model.facesCount);
+	glVertexPointer (3, GL_FLOAT, 0, finalVertex);
+	glDrawArrays(GL_TRIANGLES, 0, model.vertexCount);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	//glDisableClientState (GL_NORMAL_ARRAY);
 }
 #endif
