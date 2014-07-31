@@ -4,13 +4,8 @@
 #include <stdio.h>
 using namespace std;
 
-#define IMAGE_HEIGHT 128
-#define IMAGE_WIDTH 128
-
 #ifndef TEXTURE
 #define TEXTURE
-
-#define TEXTURE_DEBUG 1
 
 GLuint grassTextName;
 GLchar grassImage[IMAGE_HEIGHT][IMAGE_WIDTH][4];

@@ -5,8 +5,6 @@
 #include "room.hpp"
 #endif
 
-#define GRID_DEBUG 0
-
 typedef struct gridNode 
 {
 	Room room;

@@ -1,8 +1,6 @@
 #ifndef MODEL
 #define MODEL
 
-#define MODEL_DEBUG 0
-
 #include <string>
 #include <stdio.h>
 using namespace std;

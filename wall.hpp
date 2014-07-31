@@ -1,8 +1,6 @@
 #ifndef WALL
 #define WALL
 
-#define WALL_DEBUG 0
-
 typedef struct
 {
 	vec3 center;

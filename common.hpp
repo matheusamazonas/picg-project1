@@ -9,6 +9,18 @@ using namespace glm;
 
 #define GLM_FORCE_RADIANS
 
+#define MAIN_DEBUG 		0
+#define WALL_DEBUG 		0
+#define ROOM_DEBUG 		0
+#define GRID_DEBUG 		0
+#define MODEL_DEBUG 	0
+#define TEXTURE_DEBUG 	1
+
+#define LIGHT 			0
+
+#define IMAGE_HEIGHT 128
+#define IMAGE_WIDTH 128
+
 #ifndef TEXTURE
 #include "texture.hpp"
 #endif
@@ -28,12 +40,5 @@ using namespace glm;
 #ifndef MODEL
 #include "model.hpp"
 #endif
-
-#define MAIN_DEBUG 0
-#define LIGHT 0
-
-#define IMAGE_HEIGHT 128
-#define IMAGE_WIDTH 128
-
 
 
