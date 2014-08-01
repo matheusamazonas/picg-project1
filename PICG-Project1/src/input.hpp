@@ -33,7 +33,7 @@ void readInput ()
 		scanf("%i %i %i %i\n", &obj1Ave, &obj1Dev, &obj2Ave, &obj2Dev);
 			Room *room = currentRoom -> next -> room;
 
-		srand(time(NULL));
+		srand((unsigned int) time(NULL));
 		int max1 = obj1Ave + obj1Dev;
 		int min1 = obj1Ave - obj1Dev;
 		int obj1C = rand() % (max1-min1 + 1) + min1;

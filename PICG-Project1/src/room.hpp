@@ -14,7 +14,6 @@ typedef struct
 
 Room* createRoom (vec3 center, float size)
 {
-	int wallCount = 4;
 	float offset = size / 2;
 
 	Room *room = (Room*) malloc (sizeof(Room));

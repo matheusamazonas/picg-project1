@@ -4,7 +4,6 @@ vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
 vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
 
-
 GLFWwindow* window;
 
 
@@ -110,8 +109,8 @@ void init(void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
-	const char *model1Path = "../models/teapot.obj";
-	const char *model2Path = "../models/teddy.obj";
+	const char *model1Path = "models/teapot.obj";
+	const char *model2Path = "models/teddy.obj";
 
 	model1 = readModel (model1Path, 0.3f);
 	model1 -> size = 1;

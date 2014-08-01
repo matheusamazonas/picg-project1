@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <GLFW/glfw3.h>
 #include <OpenGL/glu.h>
-#include <GL/glut.h>
 #include <math.h>
 #include <string>
 #include <stdio.h>
-#include "../include/SOIL.h"
+#include <SOIL.h>
 #include "../include/glm/glm.hpp"
 
 using namespace glm;

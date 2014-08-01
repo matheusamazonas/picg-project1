@@ -87,8 +87,6 @@ Model* readModel (const char *filePath, float scale)
 	{
 		long vc = 0;
 		long fc = 0;
-		long nc = 0;
-		long tc = 0;
 		float x,y,z;
 		char id[3];
 
@@ -125,7 +123,7 @@ Model* readModel (const char *filePath, float scale)
 
 void drawModel (Model *model, vec3 position)
 {
-	int vCount = model -> facesCount*3;
+	long vCount = model -> facesCount * 3;
 	GLfloat vertices[vCount];
 	GLuint *faces = model -> faces;
 

@@ -10,7 +10,7 @@ using namespace std;
 GLuint tex;
 int width, height;
 unsigned char* image;
-const char* texName = "../textures/texture.bmp";
+const char* texName = "textures/texture.bmp";
 
 void configTextMode()
 {
