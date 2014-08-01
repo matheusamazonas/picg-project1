@@ -4,17 +4,9 @@ vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
 vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
 vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
 
-float camSpeed = 0.05f;
-float mouseSpeed = 0.0055f;
-float horizontalAngle = 3.14f;	   	 // Initial horizontal angle : toward -Z
-float verticalAngle = 0.0f;			 // Initial vertical angle : none
-float deltaTime;
-float roomSize = 2.0f;
 
 GLFWwindow* window;
-double windowSizeX = 800, windowSizeY = 600;
 
-GridNode grid;
 
 void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -85,7 +77,7 @@ void computeVectorsFromInputs(void)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective (45.0f, 4.0f / 3.0f, 0.1f, 200.0f);
+	gluPerspective (45.0f, 4.0f / 3.0f, 0.1f, 400.0f);
 
 	vec3 direction = cameraPos + cameraTarget;
 	gluLookAt(                       
@@ -109,11 +101,7 @@ void display(void)
 
 	computeVectorsFromInputs();
 
-	drawGrid(&grid);
-
-	//glutSolidTeapot (0.3);
-
-	//drawModel ();
+	drawGrid(grid);
 
 	glFlush();
 }
@@ -122,19 +110,18 @@ void init(void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
-	grid = createGrid(10, roomSize);
+	const char *model1Path = "models/teapot.obj";
+	const char *model2Path = "models/teddy.obj";
+
+	model1 = readModel (model1Path, 0.3f);
+	model1 -> size = 1;
+	model2 = readModel (model2Path, 0.1f);
+	model2 -> size = 0.5f;
+
+	readInput();
 
 	// Textures
 	configTextMode();
-
-	// Reading Models
-	const char *modelPath = "models/spider/spider01.obj";
-
-	//const char *modelPath = "models/teapot.obj";
-
-	//model = readModel (modelPath, 1.0f);
-
-
 
 #if LIGHT
 	//MATERIAL
@@ -164,6 +151,8 @@ void init(void)
 
 int main (int argc, char** argv) 
 {
+
+
 	/* Initialize the library */
 	if (!glfwInit())
 	{

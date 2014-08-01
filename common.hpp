@@ -6,7 +6,10 @@
 #include <math.h>
 #include "glm/glm.hpp"
 #include <SOIL.h>
+#include <string>
+#include <stdio.h>
 using namespace glm;
+using namespace std;
 
 #define GLM_FORCE_RADIANS
 
@@ -14,8 +17,9 @@ using namespace glm;
 #define WALL_DEBUG 		0
 #define ROOM_DEBUG 		0
 #define GRID_DEBUG 		0
-#define MODEL_DEBUG 	1
+#define MODEL_DEBUG 	0
 #define TEXTURE_DEBUG 	0
+#define INPUT_DEBUG     0
 
 #define LIGHT 			0
 
@@ -27,6 +31,14 @@ using namespace glm;
 #include "wall.hpp"
 #endif
 
+#ifndef MODEL
+#include "model.hpp"
+#endif
+
+#ifndef OBJECT
+#include "object.hpp"
+#endif
+
 #ifndef ROOM
 #include "room.hpp"
 #endif
@@ -35,8 +47,18 @@ using namespace glm;
 #include "grid.hpp"
 #endif
 
-#ifndef MODEL
-#include "model.hpp"
+#ifndef INPUT
+#include "input.hpp"
 #endif
+
+double windowSizeX    = 800, windowSizeY = 600;
+float camSpeed 		  = 0.2f;
+float mouseSpeed 	  = 0.0055f;
+float roomSize 		  = 2.0f;
+
+float horizontalAngle = 3.14f;	   	
+float verticalAngle   = 0.0f;		
+float deltaTime;
+
 
 
