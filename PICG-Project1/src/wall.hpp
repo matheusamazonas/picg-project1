@@ -4,8 +4,8 @@
 typedef struct
 {
 	vec3 center;
-	int orientation;
-	float size;
+	GLint orientation;
+	GLfloat size;
 } Wall;
 
 typedef struct wallNode
@@ -18,8 +18,8 @@ typedef struct wallNode
 void drawWall (Wall wall)
 {
 	vec3 center = wall.center;
-	float offsetX = 0, offsetY = 0, offsetZ = 0;
-	int spin = 1;
+	GLfloat offsetX = 0, offsetY = 0, offsetZ = 0;
+	GLint spin = 1;
 
 	GLfloat *texels = NULL;
 	GLfloat grassTexels[] = {0.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.0, 0.5};

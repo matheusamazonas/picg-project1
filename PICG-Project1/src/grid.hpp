@@ -11,13 +11,13 @@ void addRoom (GridNode*, Room*);
 
 GridNode *grid;
 vec3 center;
-float planeSize = 100.0f;
+GLfloat planeSize = 100.0f;
 
 GridNode* createGrid (int rooms, float roomSize)
 {
-	int dimension = ceil(sqrt(rooms));
+	GLint dimension = ceil(sqrt(rooms));
 	center = vec3 (dimension/2, -0.1f, dimension/2);
-	int elementsCreated = 0;
+	GLint elementsCreated = 0;
 	vec3 gridStart = vec3 (0.0f, 0.0f, 0.0f);
 
 	grid = (GridNode*) malloc (sizeof(GridNode));

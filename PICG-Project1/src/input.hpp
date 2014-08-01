@@ -20,7 +20,7 @@ void addObject (Room *room, ObjectNode *obj)
 
 void readInput ()
 {
-	int rooms;
+	GLint rooms;
 
     rooms = 1;
 	//scanf("%i\n", &rooms);

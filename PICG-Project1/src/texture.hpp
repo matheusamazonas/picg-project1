@@ -8,7 +8,7 @@ using namespace std;
 #define TEXTURE
 
 GLuint tex;
-int width, height;
+GLint width, height;
 unsigned char* image;
 const char* texName = "textures/texture.bmp";
 

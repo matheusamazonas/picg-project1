@@ -5,10 +5,10 @@ typedef struct model
 {
 	GLfloat *vertices; 
 	GLuint *faces;
-	long vertexCount;
-	long facesCount;
-	float scale;
-	float size;
+	GLuint vertexCount;
+	GLuint facesCount;
+	GLfloat scale;
+	GLfloat size;
 } Model;
 
 Model *model1;
@@ -85,9 +85,9 @@ Model* readModel (const char *filePath, float scale)
 	}
 	else
 	{
-		long vc = 0;
-		long fc = 0;
-		float x,y,z;
+		GLuint vc = 0;
+		GLuint fc = 0;
+		GLfloat x,y,z;
 		char id[3];
 
 		model -> vertices = (GLfloat*) calloc (100, sizeof(GLfloat));
@@ -123,7 +123,7 @@ Model* readModel (const char *filePath, float scale)
 
 void drawModel (Model *model, vec3 position)
 {
-	long vCount = model -> facesCount * 3;
+	GLuint vCount = model -> facesCount * 3;
 	GLfloat vertices[vCount];
 	GLuint *faces = model -> faces;
 

@@ -4,17 +4,17 @@
 typedef struct
 {
 	vec3 center;
-	float size;	
+	GLfloat size;
 	WallNode *walls;
 	ObjectNode *objects;
-	int obj1C;
-	int obj2C;
+	GLint obj1C;
+	GLint obj2C;
 } Room; 
 
 
 Room* createRoom (vec3 center, float size)
 {
-	float offset = size / 2;
+	GLfloat offset = size / 2;
 
 	Room *room = (Room*) malloc (sizeof(Room));
 	room -> center = center;

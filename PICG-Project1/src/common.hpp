@@ -52,14 +52,14 @@ using namespace std;
 #include "input.hpp"
 #endif
 
-double windowSizeX    = 800, windowSizeY = 600;
-float camSpeed 		  = 0.2f;
-float mouseSpeed 	  = 0.0055f;
-float roomSize 		  = 2.0f;
+GLuint windowSizeX    = 800, windowSizeY = 600;
+GLfloat camSpeed 		  = 0.2f;
+GLfloat mouseSpeed 	  = 0.0055f;
+GLfloat roomSize 		  = 2.0f;
 
-float horizontalAngle = 3.14f;	   	
-float verticalAngle   = 0.0f;		
-float deltaTime;
+GLfloat horizontalAngle = 3.14f;
+GLfloat verticalAngle   = 0.0f;
+GLfloat deltaTime;
 
 
 
