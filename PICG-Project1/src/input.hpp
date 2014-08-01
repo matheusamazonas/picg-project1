@@ -1,6 +1,48 @@
 #ifndef INPUT
 #define INPUT
 
+void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	// Right vector
+	vec3 right = vec3(
+                      sin(horizontalAngle - 3.14f/2.0f),
+                      0,
+                      cos(horizontalAngle - 3.14f/2.0f)
+                      );
+	switch (key)
+	{
+		case GLFW_KEY_W:
+			if (action == GLFW_PRESS || action == GLFW_REPEAT)
+			{
+				cameraPos += cameraTarget * deltaTime * camSpeed;
+			}
+			break;
+		case GLFW_KEY_S:
+			if (action == GLFW_PRESS || action == GLFW_REPEAT)
+			{
+				cameraPos -= cameraTarget * deltaTime * camSpeed;
+			}
+			break;
+		case GLFW_KEY_D:
+			if (action == GLFW_PRESS || action == GLFW_REPEAT)
+			{
+				cameraPos += right * deltaTime * camSpeed;
+			}
+			break;
+		case GLFW_KEY_A:
+			if (action == GLFW_PRESS || action == GLFW_REPEAT)
+			{
+				cameraPos -= right * deltaTime * camSpeed;
+			}
+			break;
+	}
+    
+#if MAIN_DEBUG
+	printf("Right: {%f, %f, %f}\n", right.x, right.y, right.z);
+#endif
+}
+
+
 void addObject (Room *room, ObjectNode *obj)
 {
 	if (room -> objects -> next == NULL)

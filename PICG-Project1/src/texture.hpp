@@ -1,16 +1,10 @@
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <stdio.h>
-using namespace std;
-
 #ifndef TEXTURE
 #define TEXTURE
 
 GLuint tex;
 GLint width, height;
 unsigned char* image;
-const char* texName = "textures/texture.bmp";
+
 
 void configTextMode()
 {

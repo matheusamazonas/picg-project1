@@ -1,53 +1,5 @@
 #include "common.hpp"
 
-vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
-vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
-vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
-
-GLFWwindow* window;
-
-
-void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	// Right vector
-	vec3 right = vec3(
-			sin(horizontalAngle - 3.14f/2.0f), 
-			0,
-			cos(horizontalAngle - 3.14f/2.0f)
-			);
-	switch (key) 
-	{
-		case GLFW_KEY_W:
-			if (action == GLFW_PRESS || action == GLFW_REPEAT)
-			{
-				cameraPos += cameraTarget * deltaTime * camSpeed;
-			}
-			break;
-		case GLFW_KEY_S:
-			if (action == GLFW_PRESS || action == GLFW_REPEAT)
-			{
-				cameraPos -= cameraTarget * deltaTime * camSpeed;
-			}
-			break;
-		case GLFW_KEY_D:
-			if (action == GLFW_PRESS || action == GLFW_REPEAT)
-			{
-				cameraPos += right * deltaTime * camSpeed;
-			}
-			break;
-		case GLFW_KEY_A:
-			if (action == GLFW_PRESS || action == GLFW_REPEAT)
-			{
-				cameraPos -= right * deltaTime * camSpeed;
-			}
-			break;
-	}
-
-#if MAIN_DEBUG
-	printf("Right: {%f, %f, %f}\n", right.x, right.y, right.z);
-#endif
-}
-
 void computeVectorsFromInputs(void)
 {
 	// glfwGetTime is called only once, the first time this function is called
@@ -107,13 +59,10 @@ void init(void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
-	const char *model1Path = "models/teapot.obj";
-	const char *model2Path = "models/teddy.obj";
-
-	model1 = readModel (model1Path, 0.3f);
-	model1 -> size = 1;
-	model2 = readModel (model2Path, 0.1f);
-	model2 -> size = 0.5f;
+	model1 = readModel (model1Path, model1Scale);
+	model1 -> size = model1Size;
+	model2 = readModel (model2Path, model2Scale);
+	model2 -> size = model2Size;
 
 	readInput();
 

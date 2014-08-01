@@ -14,15 +14,37 @@
 using namespace glm;
 using namespace std;
 
-#define MAIN_DEBUG 		0
-#define WALL_DEBUG 		0
-#define ROOM_DEBUG 		0
-#define GRID_DEBUG 		0
-#define MODEL_DEBUG 	0
-#define TEXTURE_DEBUG 	0
-#define INPUT_DEBUG     0
+#define MAIN_DEBUG 		  0
+#define WALL_DEBUG 		  0
+#define ROOM_DEBUG 		  0
+#define GRID_DEBUG 		  0
+#define MODEL_DEBUG 	  0
+#define TEXTURE_DEBUG 	  0
+#define INPUT_DEBUG       0
+#define LIGHT 			  0
 
-#define LIGHT 			0
+GLuint windowSizeX        = 800, windowSizeY = 600;
+GLfloat camSpeed 		  = 0.2f;
+GLfloat mouseSpeed        = 0.0055f;
+GLfloat roomSize 		  = 2.0f;
+GLfloat model1Scale       = 0.3f;
+GLfloat model2Scale       = 0.1f;
+GLfloat model1Size        = 5.0f;
+GLfloat model2Size        = 1.0f;
+
+const char* texName       = "textures/texture.bmp";
+const char* model1Path    = "models/teapot.obj";
+const char* model2Path    = "models/teddy.obj";
+
+GLfloat horizontalAngle   = 3.14f;
+GLfloat verticalAngle     = 0.0f;
+GLfloat deltaTime;
+
+vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
+vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
+vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
+
+GLFWwindow* window;
 
 #ifndef TEXTURE
 #include "texture.hpp"
@@ -51,15 +73,3 @@ using namespace std;
 #ifndef INPUT
 #include "input.hpp"
 #endif
-
-GLuint windowSizeX    = 800, windowSizeY = 600;
-GLfloat camSpeed 		  = 0.2f;
-GLfloat mouseSpeed 	  = 0.0055f;
-GLfloat roomSize 		  = 2.0f;
-
-GLfloat horizontalAngle = 3.14f;
-GLfloat verticalAngle   = 0.0f;
-GLfloat deltaTime;
-
-
-

@@ -5,8 +5,8 @@ typedef struct model
 {
 	GLfloat *vertices; 
 	GLuint *faces;
-	GLuint vertexCount;
-	GLuint facesCount;
+	GLint vCount;           // Vertices Count
+	GLint fCount;           // Faces Count
 	GLfloat scale;
 	GLfloat size;
 } Model;
@@ -14,66 +14,53 @@ typedef struct model
 Model *model1;
 Model *model2;
 
-void addFace (Model *model, float x, float y, float z, long position)
+void addFace (GLuint **fac, int *size, float scale, float x, float y, float z, long position)
 {
-	GLuint *fac = model -> faces;
-	
-	if (position >= model -> facesCount - 3)
+	if (position >= *size - 3)
 	{
-		model -> facesCount += 100;
-		fac = (GLuint*) realloc (fac, sizeof(GLuint) * (model -> facesCount));
+		*size += 100;
+		*fac = (GLuint*) realloc (*fac, sizeof(GLuint) * (*size));
 		if (fac == NULL)
 		{
 			printf("Error trying to reallocate memory\n");
 		}
-		else
-		{
-			model -> faces = fac;
-		}
 	}
-	fac[position]   = (GLuint) x;
-	fac[position+1] = (GLuint) y;
-	fac[position+2] = (GLuint) z;
+	(*fac)[position]   = (GLuint) x;
+	(*fac)[position+1] = (GLuint) y;
+	(*fac)[position+2] = (GLuint) z;
 #if MODEL_DEBUG
 	printf("Face: % .3f % .3f % .3f at pos %li FCount:%li\n", x, y, z, position, model -> facesCount);
 #endif
 }
 
 
-void addVertice (Model *model, float x, float y, float z, long position)
+void addVertice (GLfloat **ver, int *size, float scale, float x, float y, float z, long position)
 {
-	GLfloat *ver = model -> vertices;
-
-	if (position >= model -> vertexCount - 3)
+    if (position >= *size - 3)
 	{
-		model -> vertexCount += 100;
-		ver = (GLfloat*) realloc (ver, sizeof(GLfloat) * (model -> vertexCount));
-		if (ver == NULL)
+		*size += 100;
+		*ver = (GLfloat*) realloc (*ver, sizeof(GLfloat) * (*size));
+		if (*ver == NULL)
 		{
 			printf("Error trying to reallocate memory\n");
 		}
-		else
-		{
-			model -> vertices = ver;
-		}
 	}
-	
-	ver[position]   = (GLfloat) x * model -> scale;
-	ver[position+1] = (GLfloat) y * model -> scale;
-	ver[position+2] = (GLfloat) z * model -> scale;
+	(*ver)[position]   = (GLfloat) x * scale;
+	(*ver)[position+1] = (GLfloat) y * scale;
+    (*ver)[position+2] = (GLfloat) z * scale;
+    
 #if MODEL_DEBUG
 	printf("Ver: % .3f % .3f % .3f at pos %li VCount:%li\n", x, y, z, position, model -> vertexCount);
 #endif
 }
-
 
 Model* readModel (const char *filePath, float scale)
 {
 	Model *model = (Model*) malloc (sizeof(Model)); 
 	model -> vertices = NULL;
 	model -> faces = NULL;
-	model -> vertexCount = 0;
-	model -> facesCount = 0;
+	model -> vCount = 0;
+	model -> fCount = 0;
 	model -> scale = scale;
 	model -> size = 0;
 
@@ -89,28 +76,28 @@ Model* readModel (const char *filePath, float scale)
 		GLuint fc = 0;
 		GLfloat x,y,z;
 		char id[3];
-
+        
 		model -> vertices = (GLfloat*) calloc (100, sizeof(GLfloat));
 		model -> faces	   = (GLuint*) calloc (100, sizeof(GLuint));
-
+        
 		while (fscanf (fptr, "%s %f %f %f\n", id, &x, &y, &z) != EOF)
 		{
 			if (strcmp(id, "v") == 0)
 			{
-				addVertice (model, x, y, z, vc);
+				addVertice (&model -> vertices, &model -> vCount, model -> scale, x, y, z, vc);
 				vc += 3;
 			}
 			else if (strcmp(id, "f") == 0)
 			{
-				addFace (model, x, y, z, fc);
+				addFace (&model -> faces, &model -> fCount, model -> scale, x, y, z, fc);
 				fc += 3;
 			}
 
 		}
-		model -> vertexCount = vc;
-		model -> vertices = (GLfloat*) realloc (model -> vertices, sizeof(GLfloat) * model -> vertexCount);
-		model -> facesCount = fc;
-		model -> faces = (GLuint*) realloc (model -> faces, sizeof(GLuint) * model -> facesCount);
+		model -> vCount = vc;
+		model -> vertices = (GLfloat*) realloc (model -> vertices, sizeof(GLfloat) * model -> vCount);
+		model -> fCount = fc;
+		model -> faces = (GLuint*) realloc (model -> faces, sizeof(GLuint) * model -> fCount);
 
 #if MODEL_DEBUG
 		printf("Vertices: %li Faces: %li\n", model -> vertexCount, model -> facesCount);
@@ -123,13 +110,13 @@ Model* readModel (const char *filePath, float scale)
 
 void drawModel (Model *model, vec3 position)
 {
-	GLuint vCount = model -> facesCount * 3;
+	GLuint vCount = model -> fCount * 3;
 	GLfloat vertices[vCount];
 	GLuint *faces = model -> faces;
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	for (int f = 0; f < model -> facesCount; f += 3)
+	for (int f = 0; f < model -> fCount; f += 3)
 	{
 #if MODEL_DEBUG
 		printf("Preparing face face: %i\n", f);
@@ -149,7 +136,7 @@ void drawModel (Model *model, vec3 position)
 		}
 	}
 	glVertexPointer (3, GL_FLOAT, 0, vertices);
-	glDrawArrays(GL_TRIANGLES, 0, model -> facesCount);
+	glDrawArrays(GL_TRIANGLES, 0, model -> fCount);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 #endif
