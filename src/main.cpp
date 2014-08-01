@@ -110,8 +110,8 @@ void init(void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
-	const char *model1Path = "models/teapot.obj";
-	const char *model2Path = "models/teddy.obj";
+	const char *model1Path = "../models/teapot.obj";
+	const char *model2Path = "../models/teddy.obj";
 
 	model1 = readModel (model1Path, 0.3f);
 	model1 -> size = 1;
@@ -151,8 +151,6 @@ void init(void)
 
 int main (int argc, char** argv) 
 {
-
-
 	/* Initialize the library */
 	if (!glfwInit())
 	{
@@ -174,14 +172,6 @@ int main (int argc, char** argv)
 	glfwSetCursorPos (window, windowSizeX/2, windowSizeY/2);
 	glfwSetKeyCallback (window, keyboard);
 	glfwSwapInterval (1);
-
-	// Initializes the GLEW library
-	glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK)
-	{
-		printf("Failed to initialize GLEW\n");
-		return -1;
-	}
 
 #if MAIN_DEBUG
 	// Prints the OpenGL Version on the terminal
