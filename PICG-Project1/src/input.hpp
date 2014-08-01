@@ -22,7 +22,8 @@ void readInput ()
 {
 	int rooms;
 
-	scanf("%i\n", &rooms);
+    rooms = 1;
+	//scanf("%i\n", &rooms);
 	createGrid(rooms, 20);
 
 	GridNode *currentRoom = grid;
@@ -30,8 +31,12 @@ void readInput ()
 	for (int i = 0; i < rooms; i++)
 	{
 		int obj1Ave, obj1Dev, obj2Ave, obj2Dev;
-		scanf("%i %i %i %i\n", &obj1Ave, &obj1Dev, &obj2Ave, &obj2Dev);
+		//scanf("%i %i %i %i\n", &obj1Ave, &obj1Dev, &obj2Ave, &obj2Dev);
 			Room *room = currentRoom -> next -> room;
+        obj1Ave = 3;
+        obj1Dev = 2;
+        obj2Ave = 6;
+        obj2Dev = 3;
 
 		srand((unsigned int) time(NULL));
 		int max1 = obj1Ave + obj1Dev;

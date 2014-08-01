@@ -71,19 +71,17 @@ void computeVectorsFromInputs(void)
 			sin(verticalAngle),
 			cos(verticalAngle) * cos(horizontalAngle)
 			);
+    vec3 cameraDirection = cameraPos + cameraTarget;
+    
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective (45.0f, 4.0f / 3.0f, 0.1f, 400.0f);
+    mat4 projection = perspective (45.0f, 4.0f / 3.0f, 0.1f, 400.0f);
+    mat4 view = lookAt(cameraPos, cameraDirection, cameraUp);
+    glLoadIdentity();
+    glLoadMatrixf(value_ptr(projection * view));
 
-	vec3 direction = cameraPos + cameraTarget;
-	gluLookAt(                       
-			cameraPos.x, cameraPos.y, cameraPos.z,              			
-			direction.x, direction.y, direction.z,           
-			cameraUp.x, cameraUp.y, cameraUp.z                
-			);
 #if MAIN_DEBUG
 	printf("\nCursor position (%f, %f)\n", xpos, ypos);
 	printf("H_Angle: %f V_Angle %f\n", horizontalAngle, verticalAngle);

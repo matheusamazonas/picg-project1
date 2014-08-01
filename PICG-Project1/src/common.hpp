@@ -5,12 +5,14 @@
 #include <string>
 #include <stdio.h>
 #include <SOIL.h>
+
+#define GLM_FORCE_RADIANS
 #include "../include/glm/glm.hpp"
+#include "../include/glm/gtc/matrix_transform.hpp"
+#include "../include/glm/gtc/type_ptr.hpp"
 
 using namespace glm;
 using namespace std;
-
-#define GLM_FORCE_RADIANS
 
 #define MAIN_DEBUG 		0
 #define WALL_DEBUG 		0

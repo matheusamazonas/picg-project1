@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		3E1FCF6E198BE2110026D843 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1FCF6C198BE2110026D843 /* libglfw3.a */; };
 		3E1FCF6F198BE2110026D843 /* libSOIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1FCF6D198BE2110026D843 /* libSOIL.dylib */; };
+		3E8C3F9A198BE58D0058E8F0 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D454198BCB68003C71D8 /* CoreVideo.framework */; };
 		3EA2D334198BCAA4003C71D8 /* PICG_Project1.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D333198BCAA4003C71D8 /* PICG_Project1.1 */; };
 		3EA2D451198BCABE003C71D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2D447198BCABE003C71D8 /* main.cpp */; };
 		3EA2D453198BCB63003C71D8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D452198BCB63003C71D8 /* Cocoa.framework */; };
-		3EA2D455198BCB68003C71D8 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D454198BCB68003C71D8 /* CoreVideo.framework */; };
 		3EA2D457198BCB71003C71D8 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D456198BCB71003C71D8 /* IOKit.framework */; };
 		3EA2D459198BCBB6003C71D8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D458198BCBB6003C71D8 /* OpenGL.framework */; };
 		3EA2D468198BDA6F003C71D8 /* teapot.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D43E198BCABE003C71D8 /* teapot.obj */; };
@@ -349,11 +349,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E8C3F9A198BE58D0058E8F0 /* CoreVideo.framework in Frameworks */,
 				3E1FCF6E198BE2110026D843 /* libglfw3.a in Frameworks */,
 				3E1FCF6F198BE2110026D843 /* libSOIL.dylib in Frameworks */,
 				3EA2D459198BCBB6003C71D8 /* OpenGL.framework in Frameworks */,
 				3EA2D457198BCB71003C71D8 /* IOKit.framework in Frameworks */,
-				3EA2D455198BCB68003C71D8 /* CoreVideo.framework in Frameworks */,
 				3EA2D453198BCB63003C71D8 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
