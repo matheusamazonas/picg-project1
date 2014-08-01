@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E1FCF6E198BE2110026D843 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1FCF6C198BE2110026D843 /* libglfw3.a */; };
+		3E1FCF6F198BE2110026D843 /* libSOIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1FCF6D198BE2110026D843 /* libSOIL.dylib */; };
 		3EA2D334198BCAA4003C71D8 /* PICG_Project1.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D333198BCAA4003C71D8 /* PICG_Project1.1 */; };
 		3EA2D451198BCABE003C71D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EA2D447198BCABE003C71D8 /* main.cpp */; };
 		3EA2D453198BCB63003C71D8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D452198BCB63003C71D8 /* Cocoa.framework */; };
 		3EA2D455198BCB68003C71D8 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D454198BCB68003C71D8 /* CoreVideo.framework */; };
 		3EA2D457198BCB71003C71D8 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D456198BCB71003C71D8 /* IOKit.framework */; };
 		3EA2D459198BCBB6003C71D8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D458198BCBB6003C71D8 /* OpenGL.framework */; };
-		3EA2D460198BD3C9003C71D8 /* libSOIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D45A198BD227003C71D8 /* libSOIL.dylib */; };
-		3EA2D462198BD3DB003C71D8 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D461198BD3DB003C71D8 /* libglfw3.a */; };
 		3EA2D468198BDA6F003C71D8 /* teapot.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D43E198BCABE003C71D8 /* teapot.obj */; };
 		3EA2D469198BDA6F003C71D8 /* teddy.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D43F198BCABE003C71D8 /* teddy.obj */; };
 		3EA2D46B198BDAC2003C71D8 /* texture.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D44E198BCABE003C71D8 /* texture.bmp */; };
@@ -66,6 +66,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E1FCF6C198BE2110026D843 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../../../../usr/local/Cellar/glfw3/3.0.4/lib/libglfw3.a; sourceTree = "<group>"; };
+		3E1FCF6D198BE2110026D843 /* libSOIL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSOIL.dylib; path = ../../../../../../../usr/local/lib/libSOIL.dylib; sourceTree = "<group>"; };
 		3EA2D32E198BCAA4003C71D8 /* PICG-Project1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "PICG-Project1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EA2D333198BCAA4003C71D8 /* PICG_Project1.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = PICG_Project1.1; sourceTree = "<group>"; };
 		3EA2D33C198BCABD003C71D8 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -324,7 +326,6 @@
 		3EA2D43C198BCABE003C71D8 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
 		3EA2D43E198BCABE003C71D8 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		3EA2D43F198BCABE003C71D8 /* teddy.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teddy.obj; sourceTree = "<group>"; };
-		3EA2D440198BCABE003C71D8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		3EA2D441198BCABE003C71D8 /* sources.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sources.txt; sourceTree = "<group>"; };
 		3EA2D443198BCABE003C71D8 /* common.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		3EA2D444198BCABE003C71D8 /* grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = grid.hpp; sourceTree = "<group>"; };
@@ -340,9 +341,7 @@
 		3EA2D454198BCB68003C71D8 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		3EA2D456198BCB71003C71D8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		3EA2D458198BCBB6003C71D8 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		3EA2D45A198BD227003C71D8 /* libSOIL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSOIL.dylib; path = ../../../../usr/local/lib/libSOIL.dylib; sourceTree = "<group>"; };
 		3EA2D45E198BD31A003C71D8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		3EA2D461198BD3DB003C71D8 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../usr/local/Cellar/glfw3/3.0.4/lib/libglfw3.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,8 +349,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EA2D462198BD3DB003C71D8 /* libglfw3.a in Frameworks */,
-				3EA2D460198BD3C9003C71D8 /* libSOIL.dylib in Frameworks */,
+				3E1FCF6E198BE2110026D843 /* libglfw3.a in Frameworks */,
+				3E1FCF6F198BE2110026D843 /* libSOIL.dylib in Frameworks */,
 				3EA2D459198BCBB6003C71D8 /* OpenGL.framework in Frameworks */,
 				3EA2D457198BCB71003C71D8 /* IOKit.framework in Frameworks */,
 				3EA2D455198BCB68003C71D8 /* CoreVideo.framework in Frameworks */,
@@ -365,9 +364,9 @@
 		3EA2D325198BCAA4003C71D8 = {
 			isa = PBXGroup;
 			children = (
-				3EA2D461198BD3DB003C71D8 /* libglfw3.a */,
+				3E1FCF6C198BE2110026D843 /* libglfw3.a */,
+				3E1FCF6D198BE2110026D843 /* libSOIL.dylib */,
 				3EA2D45E198BD31A003C71D8 /* CoreFoundation.framework */,
-				3EA2D45A198BD227003C71D8 /* libSOIL.dylib */,
 				3EA2D458198BCBB6003C71D8 /* OpenGL.framework */,
 				3EA2D456198BCB71003C71D8 /* IOKit.framework */,
 				3EA2D454198BCB68003C71D8 /* CoreVideo.framework */,
@@ -391,7 +390,6 @@
 				3EA2D33A198BCABD003C71D8 /* include */,
 				3EA2D43C198BCABE003C71D8 /* input.txt */,
 				3EA2D43D198BCABE003C71D8 /* models */,
-				3EA2D440198BCABE003C71D8 /* README.md */,
 				3EA2D441198BCABE003C71D8 /* sources.txt */,
 				3EA2D442198BCABE003C71D8 /* src */,
 				3EA2D44D198BCABE003C71D8 /* textures */,
@@ -864,7 +862,10 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/glfw3/3.0.4/lib,
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -878,7 +879,10 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/glfw3/3.0.4/lib,
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -903,6 +907,7 @@
 				3EA2D339198BCAA4003C71D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
