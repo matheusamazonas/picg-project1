@@ -1,7 +1,7 @@
 #ifndef INPUT
 #define INPUT
 
-void keyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
+void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	// Right vector
 	vec3 right = vec3(
@@ -103,7 +103,7 @@ void readInput ()
 				newObj -> next = NULL;
 				newObj -> object = (Object*) malloc (sizeof(Object));
 				newObj -> object -> model = model1;
-				vec3 position = vec3 (room -> center.x + i, room -> center.y, room -> center.z + i);
+				vec3 position = vec3(room -> center.x + i, room -> center.y, room -> center.z + i);
 				newObj -> object -> position = position;
 
 				addObject(room, newObj);
@@ -118,7 +118,7 @@ void readInput ()
 				newObj -> next = NULL;
 				newObj -> object = (Object*) malloc (sizeof(Object));
 				newObj -> object -> model = model2;
-				vec3 position = vec3 (room -> center.x - i*2, room -> center.y + 2, room -> center.z - i);
+				vec3 position = vec3(room -> center.x - i*2, room -> center.y + 1, room -> center.z - i);
 				newObj -> object -> position = position;
 
 				addObject(room, newObj);

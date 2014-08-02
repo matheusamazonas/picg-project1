@@ -61,8 +61,8 @@ void drawWall (Wall wall)
 
 
 	//associa dados aos arrays
-	glTexCoordPointer (2, GL_FLOAT, 0, texels);
-	glVertexPointer (3, GL_FLOAT, 0, vertices);
+	glTexCoordPointer(2, GL_FLOAT, 0, texels);
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
 
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 

@@ -1,25 +1,25 @@
 #include "common.hpp"
 
-void computeVectorsFromInputs(void)
+void computeVectorsFromInputs ()
 {
 	// glfwGetTime is called only once, the first time this function is called
 	static double lastTime = glfwGetTime();
 
 	// Compute time difference between current and last frame
 	double currentTime = glfwGetTime();
-	deltaTime = float(currentTime - lastTime);
+	deltaTime = (float)(currentTime - lastTime);
 
 	// Get mouse position
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
 	// Compute new orientation
-	horizontalAngle = mouseSpeed * float(windowSizeX/2 - xpos);
-	verticalAngle   = mouseSpeed * float( windowSizeY/2 - ypos);
+	horizontalAngle = mouseSpeed * (float)(windowSizeX/2 - xpos);
+	verticalAngle   = mouseSpeed * (float)(windowSizeY/2 - ypos);
 
 	// Direction : Spherical coordinates to Cartesian coordinates conversion
-	cameraTarget = vec3(
-			cos(verticalAngle) * sin(horizontalAngle), 
+	cameraTarget = vec3 (
+			cos (verticalAngle) * sin(horizontalAngle),
 			sin(verticalAngle),
 			cos(verticalAngle) * cos(horizontalAngle)
 			);
@@ -29,7 +29,7 @@ void computeVectorsFromInputs(void)
 	glLoadIdentity();
 
 	glMatrixMode(GL_PROJECTION);
-    mat4 projection = perspective (45.0f, 4.0f / 3.0f, 0.1f, 400.0f);
+    mat4 projection = perspective(45.0f, 4.0f / 3.0f, 0.1f, 400.0f);
     mat4 view = lookAt(cameraPos, cameraDirection, cameraUp);
     glLoadIdentity();
     glLoadMatrixf(value_ptr(projection * view));
@@ -43,7 +43,7 @@ void computeVectorsFromInputs(void)
 #endif
 }
 
-void display(void)
+void display (void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(0.7, 0.7, 0.7);
@@ -55,7 +55,7 @@ void display(void)
 	glFlush();
 }
 
-void init(void)
+void init (void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -83,16 +83,16 @@ void init(void)
 	GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
 	GLfloat light_diffuse[] = {0.9, 0.5, 0.5, 1.0};
 	GLfloat light_ambient[] = {0.3, 0.3, 0.3, 1.0};
-	glLightfv (GL_LIGHT0, GL_POSITION, light_position);
-	glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv (GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 #endif
 
 	glEnable(GL_DEPTH_TEST);
 
-	glShadeModel (GL_SMOOTH);
+	glShadeModel(GL_SMOOTH);
 }
 
 int main (int argc, char** argv) 
@@ -114,10 +114,10 @@ int main (int argc, char** argv)
 	}
 
 	/* Make the window's context current */
-	glfwMakeContextCurrent (window);
-	glfwSetCursorPos (window, windowSizeX/2, windowSizeY/2);
-	glfwSetKeyCallback (window, keyboard);
-	glfwSwapInterval (1);
+	glfwMakeContextCurrent(window);
+	glfwSetCursorPos(window, windowSizeX/2, windowSizeY/2);
+	glfwSetKeyCallback(window, keyboard);
+	glfwSwapInterval(1);
 
 #if MAIN_DEBUG
 	// Prints the OpenGL Version on the terminal

@@ -28,7 +28,7 @@ GLfloat camSpeed 		  = 0.2f;
 GLfloat mouseSpeed        = 0.0055f;
 GLfloat roomSize 		  = 2.0f;
 GLfloat model1Scale       = 0.3f;
-GLfloat model2Scale       = 0.1f;
+GLfloat model2Scale       = 0.05f;
 GLfloat model1Size        = 5.0f;
 GLfloat model2Size        = 1.0f;
 
@@ -40,9 +40,9 @@ GLfloat horizontalAngle   = 3.14f;
 GLfloat verticalAngle     = 0.0f;
 GLfloat deltaTime;
 
-vec3 cameraPos = vec3 (0.0f, 2.0f, -10.0f);
-vec3 cameraTarget = vec3 (0.0f, 0.0f, 1.0f);
-vec3 cameraUp = vec3 (0.0f, 1.0f, 0.0f);
+vec3 cameraPos = vec3(0.0f, 2.0f, -10.0f);
+vec3 cameraTarget = vec3(0.0f, 0.0f, 1.0f);
+vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);
 
 GLFWwindow* window;
 

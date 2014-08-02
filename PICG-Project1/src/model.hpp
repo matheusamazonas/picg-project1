@@ -14,40 +14,39 @@ typedef struct model
 Model *model1;
 Model *model2;
 
-void addFace (GLuint **fac, int *size, float scale, float x, float y, float z, long position)
+void addElement3i (GLuint **list, int *size, float scale, float x, float y, float z, long position)
 {
 	if (position >= *size - 3)
 	{
 		*size += 100;
-		*fac = (GLuint*) realloc (*fac, sizeof(GLuint) * (*size));
-		if (fac == NULL)
+		*list = (GLuint*) realloc (*list, sizeof(GLuint) * (*size));
+		if (list == NULL)
 		{
 			printf("Error trying to reallocate memory\n");
 		}
 	}
-	(*fac)[position]   = (GLuint) x;
-	(*fac)[position+1] = (GLuint) y;
-	(*fac)[position+2] = (GLuint) z;
+	(*list)[position]   = (GLuint) x;
+	(*list)[position+1] = (GLuint) y;
+	(*list)[position+2] = (GLuint) z;
 #if MODEL_DEBUG
 	printf("Face: % .3f % .3f % .3f at pos %li FCount:%li\n", x, y, z, position, model -> facesCount);
 #endif
 }
 
-
-void addVertice (GLfloat **ver, int *size, float scale, float x, float y, float z, long position)
+void addElement3f (GLfloat **list, int *size, float scale, float x, float y, float z, long position)
 {
     if (position >= *size - 3)
 	{
 		*size += 100;
-		*ver = (GLfloat*) realloc (*ver, sizeof(GLfloat) * (*size));
-		if (*ver == NULL)
+		*list = (GLfloat*) realloc (*list, sizeof(GLfloat) * (*size));
+		if (*list == NULL)
 		{
 			printf("Error trying to reallocate memory\n");
 		}
 	}
-	(*ver)[position]   = (GLfloat) x * scale;
-	(*ver)[position+1] = (GLfloat) y * scale;
-    (*ver)[position+2] = (GLfloat) z * scale;
+	(*list)[position]   = (GLfloat) x * scale;
+	(*list)[position+1] = (GLfloat) y * scale;
+    (*list)[position+2] = (GLfloat) z * scale;
     
 #if MODEL_DEBUG
 	printf("Ver: % .3f % .3f % .3f at pos %li VCount:%li\n", x, y, z, position, model -> vertexCount);
@@ -84,12 +83,12 @@ Model* readModel (const char *filePath, float scale)
 		{
 			if (strcmp(id, "v") == 0)
 			{
-				addVertice (&model -> vertices, &model -> vCount, model -> scale, x, y, z, vc);
+				addElement3f(&model -> vertices, &model -> vCount, model -> scale, x, y, z, vc);
 				vc += 3;
 			}
 			else if (strcmp(id, "f") == 0)
 			{
-				addFace (&model -> faces, &model -> fCount, model -> scale, x, y, z, fc);
+				addElement3i(&model -> faces, &model -> fCount, model -> scale, x, y, z, fc);
 				fc += 3;
 			}
 
@@ -135,7 +134,7 @@ void drawModel (Model *model, vec3 position)
 #endif			
 		}
 	}
-	glVertexPointer (3, GL_FLOAT, 0, vertices);
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glDrawArrays(GL_TRIANGLES, 0, model -> fCount);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }

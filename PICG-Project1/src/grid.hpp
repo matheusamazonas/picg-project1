@@ -15,10 +15,10 @@ GLfloat planeSize = 100.0f;
 
 GridNode* createGrid (int rooms, float roomSize)
 {
-	GLint dimension = ceil(sqrt(rooms));
-	center = vec3 (dimension/2, -0.1f, dimension/2);
+	GLint dimension = ceil(sqrt (rooms));
+	center = vec3(dimension/2, -0.1f, dimension/2);
 	GLint elementsCreated = 0;
-	vec3 gridStart = vec3 (0.0f, 0.0f, 0.0f);
+	vec3 gridStart = vec3(0.0f, 0.0f, 0.0f);
 
 	grid = (GridNode*) malloc (sizeof(GridNode));
 	grid -> next = NULL;
@@ -35,12 +35,12 @@ GridNode* createGrid (int rooms, float roomSize)
 					gridStart.y,
 					gridStart.z + 3 * j * roomSize
 					);
-			Room *room = createRoom (center, roomSize);
+			Room *room = createRoom(center, roomSize);
 			if (room == NULL)
 			{
 				printf("Error while creating room\n");
 			}
-			addRoom (grid, room);
+			addRoom(grid, room);
 			elementsCreated++;
 		}
 	}
@@ -49,7 +49,7 @@ GridNode* createGrid (int rooms, float roomSize)
 
 void addRoom (GridNode *grid, Room *room)
 {
-	GridNode *newNode = (GridNode*)malloc(sizeof(GridNode));
+	GridNode *newNode = (GridNode*) malloc (sizeof(GridNode));
 	newNode -> room = room;
 	newNode -> next = NULL;
 
@@ -71,7 +71,7 @@ void addRoom (GridNode *grid, Room *room)
 #endif	
 }
 
-void drawPlane()
+void drawPlane ()
 {
 	GLfloat vertices[12] = {
 		center.x - planeSize, center.y, center.z - planeSize,
@@ -81,9 +81,9 @@ void drawPlane()
 	};
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer (3, GL_FLOAT, 0, vertices);
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	glDisableClientState (GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void drawGrid (GridNode *grid)
@@ -93,7 +93,7 @@ void drawGrid (GridNode *grid)
 	while (currentNode != NULL)
 	{
 		Room *room = currentNode -> room;
-		drawRoom(room);
+		drawRoom (room);
 		currentNode = currentNode -> next;
 	}
 }

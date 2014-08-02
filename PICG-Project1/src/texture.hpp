@@ -5,22 +5,20 @@ GLuint tex;
 GLint width, height;
 unsigned char* image;
 
-
-void configTextMode()
+void configTextMode ()
 {
 	glActiveTexture(GL_TEXTURE0);
 	//glBindTexture(GL_TEXTURE_2D, grassText);
 	glGenTextures(1, &tex);
 
-	image = SOIL_load_image (texName, &width, &height, 0, SOIL_LOAD_RGB);
+	image = SOIL_load_image(texName, &width, &height, 0, SOIL_LOAD_RGB);
 	if( 0 == tex)
 	{
-		printf( "SOIL loading error: '%s'\n", SOIL_last_result() );
+		printf("SOIL loading error: '%s'\n", SOIL_last_result() );
 	}
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	SOIL_free_image_data(image);
-
 
 	//como a textura será tratada se não há mapeamento direto 
 	//entre pixels e coordenadas de textura (GL_REPEAT ou GL_CLAMP)

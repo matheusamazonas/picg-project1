@@ -45,21 +45,21 @@ Room* createRoom (vec3 center, float size)
 	wall3.orientation = 2;
 
 	WallNode *walls;
-	walls = (WallNode*)malloc(sizeof(WallNode));
+	walls = (WallNode*) malloc (sizeof(WallNode));
 	walls -> wall = floor;
 
 	WallNode *wallNode1;
-	wallNode1 = (WallNode*)malloc(sizeof(WallNode));
+	wallNode1 = (WallNode*) malloc (sizeof(WallNode));
 	wallNode1 -> wall = wall1;
 	walls -> next = wallNode1;
 
 	WallNode *wallNode2;
-	wallNode2 = (WallNode*)malloc(sizeof(WallNode));
+	wallNode2 = (WallNode*) malloc (sizeof(WallNode));
 	wallNode2 -> wall = wall2;
 	wallNode1 -> next = wallNode2;
 
 	WallNode *wallNode3;
-	wallNode3 = (WallNode*)malloc(sizeof(WallNode));
+	wallNode3 = (WallNode*) malloc (sizeof(WallNode));
 	wallNode3 -> wall = wall3;
 	wallNode2 -> next = wallNode3;
 
@@ -77,14 +77,14 @@ void drawRoom (Room *room)
 	while (current != NULL)
 	{	
 		Wall wall = current -> wall;
-		drawWall (wall);
+		drawWall(wall);
 		current = current -> next;
 	}
 
 	ObjectNode *currentObj = room -> objects -> next;
 	while (currentObj != NULL)
 	{
-		drawModel (currentObj -> object -> model, currentObj -> object -> position);	
+		drawModel(currentObj -> object -> model, currentObj -> object -> position);	
 		currentObj = currentObj -> next; 
 	}	
 #if ROOM_DEBUG
