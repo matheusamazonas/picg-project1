@@ -73,8 +73,8 @@ void init (void)
 #if LIGHT
 	//MATERIAL
 	//Changing Material Properties, do Red Book (usar luz branca)
-	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 50.0 };
+	GLfloat mat_specular[] = { 0.8, 0.8, 0.8, 1.0 };
+	GLfloat mat_shininess[] = { 10.0 };
 
 	//atribui características ao material
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -82,7 +82,7 @@ void init (void)
 
 	// Light
 	GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
-	GLfloat light_diffuse[] = {0.9, 0.5, 0.5, 1.0};
+	GLfloat light_diffuse[] = {0.7, 0.7, 0.7, 1.0};
 	GLfloat light_ambient[] = {0.3, 0.3, 0.3, 1.0};
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);

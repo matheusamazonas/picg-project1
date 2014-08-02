@@ -18,17 +18,17 @@ using namespace std;
 #define WALL_DEBUG 		  0
 #define ROOM_DEBUG 		  0
 #define GRID_DEBUG 		  0
-#define MODEL_DEBUG 	  1
+#define MODEL_DEBUG 	  0
 #define TEXTURE_DEBUG 	  0
 #define INPUT_DEBUG       0
-#define LIGHT 			  0
+#define LIGHT 			  1
 
 GLuint windowSizeX        = 800,
        windowSizeY        = 600;
 GLfloat camSpeed 		  = 0.2f;
 GLfloat mouseSpeed        = 0.0055f;
 GLfloat roomSize 		  = 2.0f;
-GLfloat model1Scale       = 0.2f;
+GLfloat model1Scale       = 0.1f;
 GLfloat model2Scale       = 1.0f;
 GLfloat model1Size        = 5.0f;
 GLfloat model2Size        = 1.0f;
