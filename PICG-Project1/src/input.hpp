@@ -117,7 +117,7 @@ void readInput ()
 				ObjectNode *newObj = (ObjectNode*) malloc (sizeof(ObjectNode));
 				newObj -> next = NULL;
 				newObj -> object = (Object*) malloc (sizeof(Object));
-				newObj -> object -> model = model2;
+				newObj -> object -> model = model1;
 				vec3 position = vec3(room -> center.x - i*2, room -> center.y + 1, room -> center.z - i);
 				newObj -> object -> position = position;
 

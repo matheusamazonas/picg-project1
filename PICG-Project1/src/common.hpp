@@ -18,23 +18,24 @@ using namespace std;
 #define WALL_DEBUG 		  0
 #define ROOM_DEBUG 		  0
 #define GRID_DEBUG 		  0
-#define MODEL_DEBUG 	  0
+#define MODEL_DEBUG 	  1
 #define TEXTURE_DEBUG 	  0
 #define INPUT_DEBUG       0
 #define LIGHT 			  0
 
-GLuint windowSizeX        = 800, windowSizeY = 600;
+GLuint windowSizeX        = 800,
+       windowSizeY        = 600;
 GLfloat camSpeed 		  = 0.2f;
 GLfloat mouseSpeed        = 0.0055f;
 GLfloat roomSize 		  = 2.0f;
-GLfloat model1Scale       = 0.3f;
-GLfloat model2Scale       = 0.05f;
+GLfloat model1Scale       = 0.2f;
+GLfloat model2Scale       = 1.0f;
 GLfloat model1Size        = 5.0f;
 GLfloat model2Size        = 1.0f;
 
 const char* texName       = "textures/texture.bmp";
-const char* model1Path    = "models/teapot.obj";
-const char* model2Path    = "models/teddy.obj";
+const char* model1Path    = "models/spider01.obj";
+const char* model2Path    = "models/spider01.obj";
 
 GLfloat horizontalAngle   = 3.14f;
 GLfloat verticalAngle     = 0.0f;
@@ -73,3 +74,7 @@ GLFWwindow* window;
 #ifndef INPUT
 #include "input.hpp"
 #endif
+
+
+
+
