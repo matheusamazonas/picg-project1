@@ -66,7 +66,7 @@ void readInput ()
 
     rooms = 3;
 	//scanf("%i\n", &rooms);
-	createGrid(rooms, 20);
+	createGrid(rooms, roomSize);
 
 	GridNode *currentRoom = grid;
 

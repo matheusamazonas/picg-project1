@@ -214,9 +214,7 @@ Model* readModel (const char *filePath, GLfloat scale)
             if (id == 't')
             {
                 y = 1 - y;
-                if (x < 0)
-                    x = 1 + x;
-                addElement3f(&rawTexCoords, &tSize, 1.0f, abs(x), abs(y), z, tc);
+                addElement3f(&rawTexCoords, &tSize, 1.0f, x, y, z, tc);
                 tc++;
             }
         }
@@ -238,12 +236,14 @@ Model* readModel (const char *filePath, GLfloat scale)
 
 void drawModel (Model *model, vec3 position)
 {
-    glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-    //mat4 translation = translate (mat4(1.0f), vec3 (position.x, position.y, position.z));
-    //glLoadMatrixf(value_ptr(translation));
-    
-    //printf("Position: %f %f %f\n", position.x, position.y, position.z);
+    GLfloat *vertices = (GLfloat*) calloc (model -> vCount*3, sizeof(GLfloat));
+    for (int i = 0; i < model -> vCount*3; i += 3)
+    {
+        vertices[i]   = model -> vertices[i] + position.x;
+        vertices[i+1] = model -> vertices[i+1] + position.y;
+        vertices[i+2] = model -> vertices[i+2] + position.z;
+    }
+
     glEnable(GL_TEXTURE_2D);
     
     glBindTexture(GL_TEXTURE_2D, model -> texture);
@@ -253,7 +253,7 @@ void drawModel (Model *model, vec3 position)
     glEnableClientState(GL_NORMAL_ARRAY);
     
     glTexCoordPointer(3, GL_FLOAT, 0, model -> texCoords);
-    glVertexPointer(3, GL_FLOAT, 0, model -> vertices);
+    glVertexPointer(3, GL_FLOAT, 0, vertices);
     glNormalPointer(GL_FLOAT, 0, model -> normals);
     
     glDrawArrays(GL_TRIANGLES, 0, model -> vCount);

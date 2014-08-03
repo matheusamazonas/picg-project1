@@ -11,7 +11,6 @@ void addRoom (GridNode*, Room*);
 
 GridNode *grid;
 vec3 center;
-GLfloat planeSize = 100.0f;
 
 GridNode* createGrid (int rooms, float roomSize)
 {

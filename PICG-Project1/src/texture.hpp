@@ -3,14 +3,14 @@
 
 GLuint texNames[3];
 GLint width, height;
-unsigned char* roomImage;
-unsigned char* model1Image;
-unsigned char* model2Image;
 
 void configTextMode ()
 {
-	glGenTextures(3, texNames);
+    unsigned char* roomImage;
+    unsigned char* model1Image;
+    unsigned char* model2Image;
     
+	glGenTextures(3, texNames);
     
     // Texture0 - Room Texture
     glBindTexture(GL_TEXTURE_2D, texNames[0]);
@@ -28,9 +28,6 @@ void configTextMode ()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, roomImage);
 
-    
-    
-    
     // Texture1 - Model1's Texture
     glBindTexture(GL_TEXTURE_2D, texNames[1]);
     model1Image = SOIL_load_image(model1TexPath, &width, &height, 0, SOIL_LOAD_RGB);
