@@ -25,7 +25,8 @@ using namespace std;
 
 GLuint windowSizeX        = 800,
        windowSizeY        = 600;
-GLfloat camSpeed 		  = 0.3f;
+GLfloat camSpeed 		  = 0.2f;
+GLfloat speedBoost        = 1.0f;
 GLfloat mouseSpeed        = 0.0055f;
 GLfloat roomSize 		  = 50.0f;
 GLfloat planeSize         = 1000.0f;

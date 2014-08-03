@@ -29,31 +29,41 @@ void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
 		case GLFW_KEY_W:
 			if (action == GLFW_PRESS || action == GLFW_REPEAT)
 			{
-				cameraPos += cameraTarget * deltaTime * camSpeed;
+				cameraPos += cameraTarget * deltaTime * camSpeed * speedBoost;
 			}
 			break;
 		case GLFW_KEY_S:
 			if (action == GLFW_PRESS || action == GLFW_REPEAT)
 			{
-				cameraPos -= cameraTarget * deltaTime * camSpeed;
+				cameraPos -= cameraTarget * deltaTime * camSpeed * speedBoost;
 			}
 			break;
 		case GLFW_KEY_D:
 			if (action == GLFW_PRESS || action == GLFW_REPEAT)
 			{
-				cameraPos += right * deltaTime * camSpeed;
+				cameraPos += right * deltaTime * camSpeed * speedBoost;
 			}
 			break;
 		case GLFW_KEY_A:
 			if (action == GLFW_PRESS || action == GLFW_REPEAT)
 			{
-				cameraPos -= right * deltaTime * camSpeed;
+				cameraPos -= right * deltaTime * camSpeed * speedBoost;
 			}
 			break;
         case GLFW_KEY_L:
             if (action == GLFW_PRESS)
             {
                 switchLight();
+            }
+            break;
+        case GLFW_KEY_LEFT_SHIFT:
+            if (action == GLFW_PRESS)
+            {
+                speedBoost = 2.5f;
+            }
+            else if (action == GLFW_RELEASE)
+            {
+                speedBoost = 1.0f;
             }
             break;
 	}
