@@ -214,7 +214,9 @@ Model* readModel (const char *filePath, GLfloat scale)
             if (id == 't')
             {
                 y = 1 - y;
-                addElement3f(&rawTexCoords, &tSize, 1.0f, x, y, z, tc);
+                if (x < 0)
+                    x = 1 + x;
+                addElement3f(&rawTexCoords, &tSize, 1.0f, abs(x), abs(y), z, tc);
                 tc++;
             }
         }
@@ -238,10 +240,10 @@ void drawModel (Model *model, vec3 position)
 {
     glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-    mat4 translation = translate (mat4(1.0f), vec3 (position.x, position.y, position.z));
+    //mat4 translation = translate (mat4(1.0f), vec3 (position.x, position.y, position.z));
     //glLoadMatrixf(value_ptr(translation));
     
-    printf("Position: %f %f %f\n", position.x, position.y, position.z);
+    //printf("Position: %f %f %f\n", position.x, position.y, position.z);
     glEnable(GL_TEXTURE_2D);
     
     glBindTexture(GL_TEXTURE_2D, model -> texture);

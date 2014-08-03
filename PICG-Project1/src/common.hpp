@@ -28,16 +28,16 @@ GLuint windowSizeX        = 800,
 GLfloat camSpeed 		  = 0.2f;
 GLfloat mouseSpeed        = 0.0055f;
 GLfloat roomSize 		  = 1.0f;
-GLfloat model1Scale       = 0.1f;
-GLfloat model2Scale       = 5.0f;
+GLfloat model1Scale       = 0.05f;
+GLfloat model2Scale       = 4.0f;
 GLfloat model1Size        = 5.0f;
 GLfloat model2Size        = 1.0f;
 
-const char* roomTexPath       = "textures/texture.bmp";
-const char* model1Path    = "models/spider01.obj";
-const char* model2Path    = "models/spongebob.obj";
-const char* model1TexPath = "models/spider_text.bmp";
-const char* model2TexPath = "models/spongebob.bmp";
+const char* roomTexPath   = "textures/texture.bmp";
+const char* model1Path    = "models/dog.obj";
+const char* model1TexPath = "models/dog.bmp";
+const char* model2Path    = "models/cat.obj";
+const char* model2TexPath = "models/cat.bmp";
 
 GLfloat horizontalAngle   = 3.14f;
 GLfloat verticalAngle     = 0.0f;
