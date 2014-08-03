@@ -56,7 +56,9 @@ void drawWall (Wall wall)
 
 	glEnable(GL_TEXTURE_2D);
     
-    glBindTexture(GL_TEXTURE_2D, roomTex);
+    glActiveTexture(GL_TEXTURE0);
+    
+    glBindTexture(GL_TEXTURE_2D, texNames[0]);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);

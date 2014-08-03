@@ -64,7 +64,7 @@ void readInput ()
 {
 	GLint rooms;
 
-    rooms = 1;
+    rooms = 3;
 	//scanf("%i\n", &rooms);
 	createGrid(rooms, 20);
 
@@ -74,7 +74,7 @@ void readInput ()
 	{
 		int obj1Ave, obj1Dev, obj2Ave, obj2Dev;
 		//scanf("%i %i %i %i\n", &obj1Ave, &obj1Dev, &obj2Ave, &obj2Dev);
-			Room *room = currentRoom -> next -> room;
+        Room *room = currentRoom -> next -> room;
         obj1Ave = 3;
         obj1Dev = 2;
         obj2Ave = 6;
@@ -117,8 +117,8 @@ void readInput ()
 				ObjectNode *newObj = (ObjectNode*) malloc (sizeof(ObjectNode));
 				newObj -> next = NULL;
 				newObj -> object = (Object*) malloc (sizeof(Object));
-				newObj -> object -> model = model1;
-				vec3 position = vec3(room -> center.x - i*2, room -> center.y + 1, room -> center.z - i);
+				newObj -> object -> model = model2;
+				vec3 position = vec3(room -> center.x - (i*2), room -> center.y, room -> center.z - i);
 				newObj -> object -> position = position;
 
 				addObject(room, newObj);

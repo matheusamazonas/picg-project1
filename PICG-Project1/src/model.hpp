@@ -236,9 +236,15 @@ Model* readModel (const char *filePath, GLfloat scale)
 
 void drawModel (Model *model, vec3 position)
 {
+    glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+    mat4 translation = translate (mat4(1.0f), vec3 (position.x, position.y, position.z));
+    //glLoadMatrixf(value_ptr(translation));
+    
+    printf("Position: %f %f %f\n", position.x, position.y, position.z);
     glEnable(GL_TEXTURE_2D);
     
-    //glBindTexture(GL_TEXTURE_2D, model -> texture);
+    glBindTexture(GL_TEXTURE_2D, model -> texture);
     
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);

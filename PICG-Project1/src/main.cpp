@@ -50,9 +50,9 @@ void display (void)
 
 	computeVectorsFromInputs();
 
-	//drawGrid(grid);
+	drawGrid(grid);
     
-    drawModel(model1, vec3(0,0,0));
+    //drawModel(model1, vec3(1,2,11));
 	glFlush();
 }
 
@@ -62,8 +62,8 @@ void init (void)
 
 	model1 = readModel (model1Path, model1Scale);
 	model1 -> size = model1Size;
-	//model2 = readModel (model2Path, model2Scale);
-	//model2 -> size = model2Size;
+	model2 = readModel (model2Path, model2Scale);
+	model2 -> size = model2Size;
     
     // Textures
 	configTextMode();
