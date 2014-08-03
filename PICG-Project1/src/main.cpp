@@ -52,7 +52,6 @@ void display (void)
     
 	drawGrid(grid);
     
-    //drawModel(model1, vec3(1,2,11));
 	glFlush();
 }
 

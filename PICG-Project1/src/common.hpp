@@ -45,8 +45,8 @@ GLfloat horizontalAngle   = 3.14f;
 GLfloat verticalAngle     = 0.0f;
 GLfloat deltaTime;
 
-vec3 cameraPos = vec3(0.0f, 2.0f, -10.0f);
-vec3 cameraTarget = vec3(0.0f, 0.0f, 1.0f);
+vec3 cameraPos = vec3(0.0f, 30.0f, 40.0f);
+vec3 cameraTarget = vec3(0.0f, 0.0f, -1.0f);
 vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);
 
 GLFWwindow* window;

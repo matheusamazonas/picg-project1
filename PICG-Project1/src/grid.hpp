@@ -30,9 +30,9 @@ GridNode* createGrid (int rooms, float roomSize)
 		for (int j = 0; j < gridDimension & elementsCreated < rooms; j++)
 		{
 			vec3 center = vec3 (
-					gridStart.x + 3 * i * roomSize,
+					gridStart.x + 2 * i * roomSize,
 					gridStart.y,
-					gridStart.z + 3 * j * roomSize
+					gridStart.z + 2 * j * roomSize
 					);
 			Room *room = createRoom(center, roomSize);
 			if (room == NULL)

@@ -39,7 +39,7 @@ Room* createRoom (vec3 center, float size)
 	wall2.orientation = 1;
 
 	Wall wall3;
-	wallCenter = vec3 (room -> center.x, room -> center.y + offset, room -> center.z + offset);
+	wallCenter = vec3 (room -> center.x, room -> center.y + offset, room -> center.z - offset);
 	wall3.center = wallCenter;
 	wall3.size = room -> size;
 	wall3.orientation = 2;
