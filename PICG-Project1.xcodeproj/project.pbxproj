@@ -23,8 +23,11 @@
 		3EA2D46E198BDCD7003C71D8 /* input.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D43C198BCABE003C71D8 /* input.txt */; };
 		3EA323E1198DC21600F45085 /* spongebob.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323DF198DC20A00F45085 /* spongebob.obj */; };
 		3EA323E7198E794B00F45085 /* cat.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323E5198E793100F45085 /* cat.obj */; };
-		3EA323EA198E79DF00F45085 /* dog.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323E8198E79D600F45085 /* dog.bmp */; };
 		3EA323EB198E79DF00F45085 /* dog.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323E9198E79D600F45085 /* dog.obj */; };
+		3EF14AC1198ED1C200632D8F /* spider_text.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EF14ABF198ED13800632D8F /* spider_text.bmp */; };
+		3EF14AC2198ED1C200632D8F /* spongebob.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EF14AC0198ED13800632D8F /* spongebob.bmp */; };
+		3EF14AC3198ED1C200632D8F /* cat.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EF14ABE198ED12700632D8F /* cat.bmp */; };
+		3EF14AC4198ED1C200632D8F /* dog.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323E8198E79D600F45085 /* dog.bmp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +37,6 @@
 			dstPath = models;
 			dstSubfolderSpec = 7;
 			files = (
-				3EA323EA198E79DF00F45085 /* dog.bmp in CopyFiles */,
 				3EA323EB198E79DF00F45085 /* dog.obj in CopyFiles */,
 				3EA323E7198E794B00F45085 /* cat.obj in CopyFiles */,
 				3EA323E1198DC21600F45085 /* spongebob.obj in CopyFiles */,
@@ -61,6 +63,10 @@
 			dstPath = textures;
 			dstSubfolderSpec = 7;
 			files = (
+				3EF14AC1198ED1C200632D8F /* spider_text.bmp in CopyFiles */,
+				3EF14AC2198ED1C200632D8F /* spongebob.bmp in CopyFiles */,
+				3EF14AC3198ED1C200632D8F /* cat.bmp in CopyFiles */,
+				3EF14AC4198ED1C200632D8F /* dog.bmp in CopyFiles */,
 				3EA2D46B198BDAC2003C71D8 /* texture.bmp in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

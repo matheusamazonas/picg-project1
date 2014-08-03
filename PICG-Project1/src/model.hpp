@@ -16,6 +16,8 @@ typedef struct model
 
 
 FILE *fptr;
+Model *model1;
+Model *model2;
 
 GLfloat *rawVertices;
 GLint *rawFaces;

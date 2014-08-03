@@ -38,8 +38,7 @@ void computeVectorsFromInputs ()
 	printf("\nCursor position (%f, %f)\n", xpos, ypos);
 	printf("H_Angle: %f V_Angle %f\n", horizontalAngle, verticalAngle);
 	printf("Camera position: {%f, %f, %f}\n", cameraPos.x, cameraPos.y, cameraPos.z);
-	printf("Camera front: {%f, %f, %f\n", cameraTarget.x, cameraTarget.y, cameraTarget.z);
-	printf("Camera Direction: {%f, %f, %f}\n", direction.x, direction.y, direction.z);
+	printf("Camera target: {%f, %f, %f\n", cameraTarget.x, cameraTarget.y, cameraTarget.z);
 #endif
 }
 

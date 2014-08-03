@@ -74,7 +74,6 @@ void drawWall (Wall wall)
 	glDisable(GL_TEXTURE_2D);
 
 #if WALL_DEBUG
-	printf("Wall color: %f %f %f\n", color.x, color.y, color.z);
 	printf("OffsetX: %f OffsetY: %f OffsetZ: %f\n", offsetX, offsetY, offsetZ);
 	printf("Wall center: %f %f %f Wall Size: %f Wall Orientation: %d\n", center.x, center.y, center.z, wall.size, wall.orientation);
 	printf("Vertices:\n%f %f %f\n%f %f %f\n%f %f %f\n%f %f %f\n",

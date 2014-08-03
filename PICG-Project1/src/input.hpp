@@ -1,7 +1,6 @@
 #ifndef INPUT
 #define INPUT
 
-
 void switchLight ()
 {
     light = !light;
@@ -76,22 +75,22 @@ void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
 void readInput ()
 {
 	GLint rooms;
+	scanf("%i\n", &rooms);
     
-    rooms = 3;
-	//scanf("%i\n", &rooms);
-	createGrid(rooms, roomSize);
-    
+    if (rooms > maxRooms)
+    {
+        printf("Too many rooms! I can draw only 10\n");
+        rooms = maxRooms;
+    }
+	
+    createGrid(rooms, roomSize);
 	GridNode *currentGridNode = grid;
     
 	for (int i = 0; i < rooms; i++)
 	{
 		int obj1Ave, obj1Dev, obj2Ave, obj2Dev;
-		//scanf("%i %i %i %i\n", &obj1Ave, &obj1Dev, &obj2Ave, &obj2Dev);
+		scanf("%*s %*s %i %i %*s %i %i", &obj1Ave, &obj1Dev, &obj2Ave, &obj2Dev);
         Room *room = currentGridNode -> next -> room;
-        obj1Ave = 50;
-        obj1Dev = 0;
-        obj2Ave = 50;
-        obj2Dev = 0;
         
 		srand((unsigned int) time(NULL));
 		int max1 = obj1Ave + obj1Dev;
