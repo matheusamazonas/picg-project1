@@ -262,5 +262,6 @@ void drawModel (Model *model, vec3 position)
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_TEXTURE_2D);
+    free(vertices);
 }
 #endif
