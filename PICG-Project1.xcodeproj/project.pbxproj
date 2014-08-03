@@ -12,7 +12,6 @@
 		3E0304D6198D8A3F00ABE369 /* teddy.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D43F198BCABE003C71D8 /* teddy.obj */; };
 		3E1FCF6E198BE2110026D843 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1FCF6C198BE2110026D843 /* libglfw3.a */; };
 		3E1FCF6F198BE2110026D843 /* libSOIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1FCF6D198BE2110026D843 /* libSOIL.dylib */; };
-		3E32C030198DA0F600292887 /* spider_text.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E32C02F198DA0DF00292887 /* spider_text.bmp */; };
 		3E5E1CB7198D3EE100A84D41 /* spider01.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3E5E1CB6198D3ECE00A84D41 /* spider01.obj */; };
 		3E8C3F9A198BE58D0058E8F0 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D454198BCB68003C71D8 /* CoreVideo.framework */; };
 		3EA2D334198BCAA4003C71D8 /* PICG_Project1.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D333198BCAA4003C71D8 /* PICG_Project1.1 */; };
@@ -22,9 +21,7 @@
 		3EA2D459198BCBB6003C71D8 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EA2D458198BCBB6003C71D8 /* OpenGL.framework */; };
 		3EA2D46B198BDAC2003C71D8 /* texture.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D44E198BCABE003C71D8 /* texture.bmp */; };
 		3EA2D46E198BDCD7003C71D8 /* input.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA2D43C198BCABE003C71D8 /* input.txt */; };
-		3EA323E0198DC21600F45085 /* spongebob.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323DE198DC20A00F45085 /* spongebob.bmp */; };
 		3EA323E1198DC21600F45085 /* spongebob.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323DF198DC20A00F45085 /* spongebob.obj */; };
-		3EA323E6198E794B00F45085 /* cat.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323E4198E793100F45085 /* cat.bmp */; };
 		3EA323E7198E794B00F45085 /* cat.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323E5198E793100F45085 /* cat.obj */; };
 		3EA323EA198E79DF00F45085 /* dog.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323E8198E79D600F45085 /* dog.bmp */; };
 		3EA323EB198E79DF00F45085 /* dog.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EA323E9198E79D600F45085 /* dog.obj */; };
@@ -39,11 +36,8 @@
 			files = (
 				3EA323EA198E79DF00F45085 /* dog.bmp in CopyFiles */,
 				3EA323EB198E79DF00F45085 /* dog.obj in CopyFiles */,
-				3EA323E6198E794B00F45085 /* cat.bmp in CopyFiles */,
 				3EA323E7198E794B00F45085 /* cat.obj in CopyFiles */,
-				3EA323E0198DC21600F45085 /* spongebob.bmp in CopyFiles */,
 				3EA323E1198DC21600F45085 /* spongebob.obj in CopyFiles */,
-				3E32C030198DA0F600292887 /* spider_text.bmp in CopyFiles */,
 				3E0304D6198D8A3F00ABE369 /* teddy.obj in CopyFiles */,
 				3E0304D5198D8A3900ABE369 /* teapot.obj in CopyFiles */,
 				3E0304D3198D8A2900ABE369 /* dragon.obj in CopyFiles */,
@@ -87,7 +81,6 @@
 		3E0304D2198D8A1500ABE369 /* dragon.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = dragon.obj; sourceTree = "<group>"; };
 		3E1FCF6C198BE2110026D843 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../../../../usr/local/Cellar/glfw3/3.0.4/lib/libglfw3.a; sourceTree = "<group>"; };
 		3E1FCF6D198BE2110026D843 /* libSOIL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSOIL.dylib; path = ../../../../../../../usr/local/lib/libSOIL.dylib; sourceTree = "<group>"; };
-		3E32C02F198DA0DF00292887 /* spider_text.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = spider_text.bmp; sourceTree = "<group>"; };
 		3E5E1CB6198D3ECE00A84D41 /* spider01.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spider01.obj; sourceTree = "<group>"; };
 		3EA2D32E198BCAA4003C71D8 /* PICG-Project1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "PICG-Project1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EA2D333198BCAA4003C71D8 /* PICG_Project1.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = PICG_Project1.1; sourceTree = "<group>"; };
@@ -363,12 +356,13 @@
 		3EA2D456198BCB71003C71D8 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		3EA2D458198BCBB6003C71D8 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		3EA2D45E198BD31A003C71D8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		3EA323DE198DC20A00F45085 /* spongebob.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = spongebob.bmp; sourceTree = "<group>"; };
 		3EA323DF198DC20A00F45085 /* spongebob.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spongebob.obj; sourceTree = "<group>"; };
-		3EA323E4198E793100F45085 /* cat.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = cat.bmp; sourceTree = "<group>"; };
 		3EA323E5198E793100F45085 /* cat.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cat.obj; sourceTree = "<group>"; };
-		3EA323E8198E79D600F45085 /* dog.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = dog.bmp; sourceTree = "<group>"; };
+		3EA323E8198E79D600F45085 /* dog.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = dog.bmp; path = "/Users/matheusandrade/Documents/UFS/9 Periodo/PICG/picg-project1/PICG-Project1/textures/dog.bmp"; sourceTree = "<absolute>"; };
 		3EA323E9198E79D600F45085 /* dog.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dog.obj; sourceTree = "<group>"; };
+		3EF14ABE198ED12700632D8F /* cat.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = cat.bmp; sourceTree = "<group>"; };
+		3EF14ABF198ED13800632D8F /* spider_text.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = spider_text.bmp; sourceTree = "<group>"; };
+		3EF14AC0198ED13800632D8F /* spongebob.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = spongebob.bmp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -720,13 +714,9 @@
 		3EA2D43D198BCABE003C71D8 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				3EA323E8198E79D600F45085 /* dog.bmp */,
 				3EA323E9198E79D600F45085 /* dog.obj */,
-				3EA323E4198E793100F45085 /* cat.bmp */,
 				3EA323E5198E793100F45085 /* cat.obj */,
-				3EA323DE198DC20A00F45085 /* spongebob.bmp */,
 				3EA323DF198DC20A00F45085 /* spongebob.obj */,
-				3E32C02F198DA0DF00292887 /* spider_text.bmp */,
 				3E0304D2198D8A1500ABE369 /* dragon.obj */,
 				3E5E1CB6198D3ECE00A84D41 /* spider01.obj */,
 				3EA2D43E198BCABE003C71D8 /* teapot.obj */,
@@ -754,10 +744,15 @@
 		3EA2D44D198BCABE003C71D8 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				3EF14ABF198ED13800632D8F /* spider_text.bmp */,
+				3EF14AC0198ED13800632D8F /* spongebob.bmp */,
+				3EF14ABE198ED12700632D8F /* cat.bmp */,
+				3EA323E8198E79D600F45085 /* dog.bmp */,
 				3EA2D44E198BCABE003C71D8 /* texture.bmp */,
 			);
-			path = textures;
-			sourceTree = "<group>";
+			name = textures;
+			path = "/Users/matheusandrade/Documents/UFS/9 Periodo/PICG/picg-project1/PICG-Project1/textures";
+			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
 

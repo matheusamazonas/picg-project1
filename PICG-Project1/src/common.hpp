@@ -34,6 +34,7 @@ GLfloat model1Scale       = 0.05f;
 GLfloat model2Scale       = 4.0f;
 GLfloat model1Size        = 5.0f;
 GLfloat model2Size        = 1.0f;
+GLint largeObjectSize     = 1.0f;
 bool light                = true;
 
 const char* roomTexPath   = "textures/texture.bmp";

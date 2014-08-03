@@ -1,7 +1,6 @@
 #ifndef INPUT
 #define INPUT
 
-GLint largeObjectSize;
 
 void switchLight ()
 {
@@ -74,76 +73,6 @@ void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
 }
 
 
-void addObject (Room *room, ObjectNode *obj)
-{
-	if (room -> objects -> next == NULL)
-	{
-		room -> objects -> next = obj;
-	}
-	else
-	{
-		ObjectNode *current = room -> objects -> next;
-		while (current -> next != NULL)
-		{
-			current = current -> next;
-		}
-		current -> next = obj;
-	}
-}
-
-void placeObjects(Room *room)
-{
-    vec3 startPoint = (room -> center) - (vec3(room -> size/2, 0, room -> size/2));
-    startPoint += vec3(largeObjectSize/2, 0, largeObjectSize/2);
-    
-    int maxRolls = floor(roomSize / largeObjectSize);
-    int totalObjects = room -> obj1C + room -> obj2C;
-    
-    for (int i = 0; i < totalObjects; i++)
-    {
-        ObjectNode *newObj = (ObjectNode*) malloc(sizeof(ObjectNode));
-        newObj -> next = NULL;
-        newObj -> object = (Object*) malloc (sizeof(Object));
-        
-        if (rand() % 2 == 0)
-        {
-            if (room -> obj1C > 0)
-            {
-                newObj -> object -> model = model1;
-                room -> obj1C--;
-            }
-            else
-            {
-                newObj -> object -> model = model2;
-                room -> obj2C--;
-            }
-        }
-        else
-        {
-            if (room -> obj2C > 0)
-            {
-                newObj -> object -> model = model2;
-                room -> obj2C--;
-            }
-            else
-            {
-                newObj -> object -> model = model1;
-                room -> obj1C--;
-            }
-        }
-        
-        int rolls = i / maxRolls;
-        int columns = i % maxRolls;
-        
-        GLfloat offSetX = rolls * largeObjectSize;
-        GLfloat offSetY = columns * largeObjectSize;
-        
-        vec3 position = vec3(startPoint.x + offSetX , startPoint.y, startPoint.z + offSetY);
-        newObj -> object -> position = position;
-        addObject(room, newObj);
-    }
-}
-
 void readInput ()
 {
 	GLint rooms;
@@ -188,12 +117,12 @@ void readInput ()
             printf("I can't put %i in this room,I can put only %i", obj1C + obj2C, maxObjects);
             if (rand() % 2 == 0)
             {
-                printf(" Let me take an Model1 out\n");
+                printf(" Let me take a Model1 out\n");
                 obj1C--;
             }
             else
             {
-                printf(" Let me take an Model2 out\n");
+                printf(" Let me take a Model2 out\n");
                 obj2C--;
             }
         }
