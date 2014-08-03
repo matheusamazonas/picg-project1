@@ -25,7 +25,7 @@ using namespace std;
 
 GLuint windowSizeX        = 800,
        windowSizeY        = 600;
-GLfloat camSpeed 		  = 0.6f;
+GLfloat camSpeed 		  = 0.3f;
 GLfloat mouseSpeed        = 0.0055f;
 GLfloat roomSize 		  = 50.0f;
 GLfloat planeSize         = 1000.0f;
@@ -33,6 +33,7 @@ GLfloat model1Scale       = 0.05f;
 GLfloat model2Scale       = 4.0f;
 GLfloat model1Size        = 5.0f;
 GLfloat model2Size        = 1.0f;
+bool light                = true;
 
 const char* roomTexPath   = "textures/texture.bmp";
 const char* model1Path    = "models/dog.obj";

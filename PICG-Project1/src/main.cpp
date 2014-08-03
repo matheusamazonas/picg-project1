@@ -49,7 +49,7 @@ void display (void)
 	glColor3f(0.7, 0.7, 0.7);
 
 	computeVectorsFromInputs();
-
+    
 	drawGrid(grid);
     
     //drawModel(model1, vec3(1,2,11));
@@ -71,19 +71,10 @@ void init (void)
 	readInput();
 
 #if LIGHT
-	//MATERIAL
-	//Changing Material Properties, do Red Book (usar luz branca)
-	GLfloat mat_specular[] = { 0.8, 0.8, 0.8, 1.0 };
-	GLfloat mat_shininess[] = { 10.0 };
-
-	//atribui características ao material
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-
 	// Light
 	GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
-	GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 0.0};
-	GLfloat light_ambient[] = {0.7, 0.7, 0.7, 0.0};
+	GLfloat light_diffuse[] = {0.9, 0.9, 0.9, 0.0};
+	GLfloat light_ambient[] = {1.4, 1.4, 1.4, 0.0};
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);

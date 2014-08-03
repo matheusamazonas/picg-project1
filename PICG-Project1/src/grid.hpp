@@ -14,20 +14,20 @@ vec3 center;
 
 GridNode* createGrid (int rooms, float roomSize)
 {
-	GLint dimension = ceil(sqrt (rooms));
-	center = vec3(dimension/2, -0.1f, dimension/2);
+	GLint gridDimension = ceil(sqrt (rooms));
+	center = vec3(gridDimension/2, -0.1f, gridDimension/2);
 	GLint elementsCreated = 0;
 	vec3 gridStart = vec3(0.0f, 0.0f, 0.0f);
 
-	grid = (GridNode*) malloc (sizeof(GridNode));
+	grid = (GridNode*) malloc(sizeof(GridNode));
 	grid -> next = NULL;
 
 	GridNode *current = grid;
 	current -> next = NULL;
 	
-	for (int i = 0; i < dimension ; i++)
+	for (int i = 0; i < gridDimension ; i++)
 	{
-		for (int j = 0; j < dimension & elementsCreated < rooms; j++)
+		for (int j = 0; j < gridDimension & elementsCreated < rooms; j++)
 		{
 			vec3 center = vec3 (
 					gridStart.x + 3 * i * roomSize,
@@ -48,7 +48,7 @@ GridNode* createGrid (int rooms, float roomSize)
 
 void addRoom (GridNode *grid, Room *room)
 {
-	GridNode *newNode = (GridNode*) malloc (sizeof(GridNode));
+	GridNode *newNode = (GridNode*) malloc(sizeof(GridNode));
 	newNode -> room = room;
 	newNode -> next = NULL;
 

@@ -28,7 +28,7 @@ void addElement3f (GLfloat **list, GLint *size, float scale, float x, float y, f
     if (index >= *size - 3)
 	{
 		*size += 100;
-		*list = (GLfloat*) realloc (*list, sizeof(GLfloat) * (*size));
+		*list = (GLfloat*) realloc(*list, sizeof(GLfloat) * (*size));
 		if (*list == NULL)
 		{
 			printf("Error trying to reallocate memory in addElement3f\n");
@@ -49,7 +49,7 @@ void addFace (GLint **faces, GLint *size, int v1, int v2, int v3, int n1, int n2
     if (index >= *size - 9)
 	{
 		*size += 900;
-		*faces = (GLint*) realloc (*faces, sizeof(GLint) * (*size));
+		*faces = (GLint*) realloc(*faces, sizeof(GLint) * (*size));
 		if (*faces == NULL)
 		{
 			printf("Error trying to reallocate memory in addFace\n");
@@ -73,8 +73,8 @@ void addFace (GLint **faces, GLint *size, int v1, int v2, int v3, int n1, int n2
 
 void processData (Model *model, GLint size, int tCount)
 {
-    model -> vertices = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
-    model -> normals = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
+    model -> vertices  = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
+    model -> normals   = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
     model -> texCoords = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
     
     model -> vCount = size * 3;
@@ -161,15 +161,16 @@ void initialize (Model *model, const char* filePath, GLfloat scale)
     
     model -> vertices = NULL;
     model -> normals = NULL;
-    //model -> texCoord = NULL;
+    model -> texCoords = NULL;
 	model -> vCount = 0;
     model -> nCount = 0;
     model -> tCount = 0;
 	model -> scale = scale;
 	model -> size = 0;
-    rawVertices = (GLfloat*) calloc (100, sizeof(GLfloat));
+    rawVertices  = (GLfloat*) calloc(100, sizeof(GLfloat));
+    rawNormals   = (GLfloat*) calloc(100, sizeof(GLfloat));
+    rawTexCoords = (GLfloat*) calloc(100, sizeof(GLfloat));
     rawFaces = (GLint*) calloc (100, sizeof(GLint));
-    rawNormals = (GLfloat*) calloc (100, sizeof(GLfloat));
 #if MODEL_DEBUG
 	printf("Initialization for %s is over\n", filePath);
 #endif
@@ -177,7 +178,7 @@ void initialize (Model *model, const char* filePath, GLfloat scale)
 
 Model* readModel (const char *filePath, GLfloat scale)
 {
-	Model *model = (Model*) malloc (sizeof(Model));
+	Model *model = (Model*) malloc(sizeof(Model));
     initialize(model, filePath, scale);
 	
     GLint vc = 0;
@@ -230,13 +231,17 @@ Model* readModel (const char *filePath, GLfloat scale)
 	printf("vCount: %i\n", model -> vCount);
     printf("Finished loading model %s\n\n", filePath);
 #endif
+    free(rawVertices);
+    free(rawNormals);
+    free(rawTexCoords);
+    free(rawFaces);
     fclose(fptr);
     return model;
 }
 
 void drawModel (Model *model, vec3 position)
 {
-    GLfloat *vertices = (GLfloat*) calloc (model -> vCount*3, sizeof(GLfloat));
+    GLfloat *vertices = (GLfloat*) calloc(model -> vCount*3, sizeof(GLfloat));
     for (int i = 0; i < model -> vCount*3; i += 3)
     {
         vertices[i]   = model -> vertices[i] + position.x;

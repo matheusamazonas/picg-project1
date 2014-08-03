@@ -16,7 +16,7 @@ Room* createRoom (vec3 center, float size)
 {
 	GLfloat offset = size / 2;
 
-	Room *room = (Room*) malloc (sizeof(Room));
+	Room *room = (Room*) malloc(sizeof(Room));
 	room -> center = center;
 	room -> size = size;
 	room -> objects = NULL;
@@ -45,21 +45,21 @@ Room* createRoom (vec3 center, float size)
 	wall3.orientation = 2;
 
 	WallNode *walls;
-	walls = (WallNode*) malloc (sizeof(WallNode));
+	walls = (WallNode*) malloc(sizeof(WallNode));
 	walls -> wall = floor;
 
 	WallNode *wallNode1;
-	wallNode1 = (WallNode*) malloc (sizeof(WallNode));
+	wallNode1 = (WallNode*) malloc(sizeof(WallNode));
 	wallNode1 -> wall = wall1;
 	walls -> next = wallNode1;
 
 	WallNode *wallNode2;
-	wallNode2 = (WallNode*) malloc (sizeof(WallNode));
+	wallNode2 = (WallNode*) malloc(sizeof(WallNode));
 	wallNode2 -> wall = wall2;
 	wallNode1 -> next = wallNode2;
 
 	WallNode *wallNode3;
-	wallNode3 = (WallNode*) malloc (sizeof(WallNode));
+	wallNode3 = (WallNode*) malloc(sizeof(WallNode));
 	wallNode3 -> wall = wall3;
 	wallNode2 -> next = wallNode3;
 

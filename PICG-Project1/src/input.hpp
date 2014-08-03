@@ -1,6 +1,19 @@
 #ifndef INPUT
 #define INPUT
 
+void switchLight ()
+{
+    light = !light;
+    if (light)
+    {
+        glEnable(GL_LIGHTING);
+    }
+    else
+    {
+        glDisable(GL_LIGHTING);
+    }
+}
+
 void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	// Right vector
@@ -35,6 +48,12 @@ void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
 				cameraPos -= right * deltaTime * camSpeed;
 			}
 			break;
+        case GLFW_KEY_L:
+            if (action == GLFW_PRESS)
+            {
+                switchLight();
+            }
+            break;
 	}
     
 #if MAIN_DEBUG
@@ -90,8 +109,8 @@ void readInput ()
 		int obj2C = rand() % (max2-min2 + 1) + min2;
 
 		room -> obj1C = obj1C;
-		room -> obj2C = obj1C;
-		room -> objects = (ObjectNode*) malloc (sizeof(ObjectNode));
+		room -> obj2C = obj2C;
+		room -> objects = (ObjectNode*) malloc(sizeof(ObjectNode));
 		room -> objects -> next = NULL;
 
 		if (obj1C > 0)
@@ -99,7 +118,7 @@ void readInput ()
 
 			for (int i = 0; i < room -> obj1C; i++)
 			{
-				ObjectNode *newObj = (ObjectNode*) malloc (sizeof(ObjectNode));
+				ObjectNode *newObj = (ObjectNode*) malloc(sizeof(ObjectNode));
 				newObj -> next = NULL;
 				newObj -> object = (Object*) malloc (sizeof(Object));
 				newObj -> object -> model = model1;
@@ -114,17 +133,18 @@ void readInput ()
 		{
 			for (int i = 0; i < room -> obj2C; i++)
 			{
-				ObjectNode *newObj = (ObjectNode*) malloc (sizeof(ObjectNode));
+				ObjectNode *newObj = (ObjectNode*) malloc(sizeof(ObjectNode));
 				newObj -> next = NULL;
 				newObj -> object = (Object*) malloc (sizeof(Object));
 				newObj -> object -> model = model2;
-				vec3 position = vec3(room -> center.x - (i*2), room -> center.y, room -> center.z - i);
+				vec3 position = vec3(room -> center.x - (i*2), room -> center.y, room -> center.z - (i*2));
 				newObj -> object -> position = position;
 
 				addObject(room, newObj);
 			}
 
 		}
+ 
 		currentRoom = currentRoom -> next;
 #if INPUT_DEBUG
 		printf("Read %i %i %i %i\n", obj1Ave, obj1Dev, obj2Ave, obj2Dev);
