@@ -5,40 +5,22 @@ typedef struct model
 {
 	GLfloat *vertices;
     GLfloat *normals;
-    GLfloat *texCoord;
+    GLfloat *texCoords;
 	GLint vCount;
     GLint nCount;
     GLint tCount;
 	GLfloat scale;
 	GLfloat size;
+    GLuint texture;
 } Model;
 
-Model *model1;
-Model *model2;
+
 FILE *fptr;
 
 GLfloat *rawVertices;
 GLint *rawFaces;
 GLfloat *rawNormals;
-//GLfloat *texCoord;
-
-void addElement2f (GLfloat **list, GLint *size, float scale, float x, float y, GLint position)
-{
-	if (position >= *size - 2)
-	{
-		*size += 100;
-		*list = (GLfloat*) realloc (*list, sizeof(GLfloat) * (*size));
-		if (list == NULL)
-		{
-			printf("Error trying to reallocate memory in addElement2f\n");
-		}
-	}
-	(*list)[position]   = (GLfloat) x;
-	(*list)[position+1] = (GLfloat) y;
-#if MODEL_DEBUG
-	printf("TexCoord: % .3f % .3f at pos %i Count:%i\n", x, y, position, *size);
-#endif
-}
+GLfloat *rawTexCoords;
 
 void addElement3f (GLfloat **list, GLint *size, float scale, float x, float y, float z, GLint position)
 {
@@ -61,7 +43,7 @@ void addElement3f (GLfloat **list, GLint *size, float scale, float x, float y, f
 #endif
 }
 
-void addFace (GLint **faces, GLint *size, int v1, int v2, int v3, int n1, int n2, int n3, GLint position)
+void addFace (GLint **faces, GLint *size, int v1, int v2, int v3, int n1, int n2, int n3, int t1, int t2, int t3 ,GLint position)
 {
     int index = position * 9;
     if (index >= *size - 9)
@@ -75,13 +57,13 @@ void addFace (GLint **faces, GLint *size, int v1, int v2, int v3, int n1, int n2
 	}
 	(*faces)[index]     = v1;
     (*faces)[index+1]   = n1;
-    (*faces)[index+2]   = 55;
+    (*faces)[index+2]   = t1;
 	(*faces)[index+3]   = v2;
     (*faces)[index+4]   = n2;
-    (*faces)[index+5]   = 55;
+    (*faces)[index+5]   = t2;
     (*faces)[index+6]   = v3;
     (*faces)[index+7]   = n3;
-    (*faces)[index+8]   = 55;
+    (*faces)[index+8]   = t3;
     
 #if MODEL_DEBUG
 	printf("Face at pos %i Size:%i v1:%i v2:%i v3:%i ", position, *size, v1, v2, v3);
@@ -89,12 +71,15 @@ void addFace (GLint **faces, GLint *size, int v1, int v2, int v3, int n1, int n2
 #endif
 }
 
-void processData (Model *model, GLint size)
+void processData (Model *model, GLint size, int tCount)
 {
     model -> vertices = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
     model -> normals = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
+    model -> texCoords = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
+    
     model -> vCount = size * 3;
     model -> nCount = size * 3;
+    model -> tCount = size * 3;
     
     for (int position = 0; position < size*9; position += 9)
     {
@@ -106,9 +91,14 @@ void processData (Model *model, GLint size)
         int n2 = rawFaces[position+4];
         int n3 = rawFaces[position+7];
         
+        int t1 = rawFaces[position+2];
+        int t2 = rawFaces[position+5];
+        int t3 = rawFaces[position+8];
+        
 #if MODEL_DEBUG
         printf("Processing data at %i v1: %i v2: %i v3: %i\n", position, v1, v2, v3);
         printf("Processing data at %i n1: %i n2: %i n3: %i\n", position, n1, n2, n3);
+        printf("Processing data at %i t1: %i t2: %i t3: %i\n", position, t1, t2, t3);
 #endif
         
         v1 = (v1 - 1) * 3;
@@ -118,6 +108,10 @@ void processData (Model *model, GLint size)
         n1 = (n1 - 1) * 3;
         n2 = (n2 - 1) * 3;
         n3 = (n3 - 1) * 3;
+        
+        t1 = (t1 - 1) * 3;
+        t2 = (t2 - 1) * 3;
+        t3 = (t3 - 1) * 3;
         
         model -> vertices[position]    = rawVertices[v1];
         model -> vertices[position+1]  = rawVertices[v1+1];
@@ -142,6 +136,18 @@ void processData (Model *model, GLint size)
         model -> normals[position+6]  = rawNormals[n3];
         model -> normals[position+7]  = rawNormals[n3+1];
         model -> normals[position+8]  = rawNormals[n3+2];
+        
+        model -> texCoords[position]    = rawTexCoords[t1];
+        model -> texCoords[position+1]  = rawTexCoords[t1+1];
+        model -> texCoords[position+2]  = rawTexCoords[t1+2];
+        
+        model -> texCoords[position+3]  = rawTexCoords[t2];
+        model -> texCoords[position+4]  = rawTexCoords[t2+1];
+        model -> texCoords[position+5]  = rawTexCoords[t2+2];
+        
+        model -> texCoords[position+6]  = rawTexCoords[t3];
+        model -> texCoords[position+7]  = rawTexCoords[t3+1];
+        model -> texCoords[position+8]  = rawTexCoords[t3+2];
     }
 }
 
@@ -176,10 +182,11 @@ Model* readModel (const char *filePath, GLfloat scale)
 	
     GLint vc = 0;
     GLint nc = 0;
-    //GLint tc = 0;
+    GLint tc = 0;
     GLint fc = 0;
     GLint vSize = 0;
     GLint nSize = 0;
+    GLint tSize = 0;
     GLint fSize = 0;
     
     char *line = NULL;
@@ -204,15 +211,21 @@ Model* readModel (const char *filePath, GLfloat scale)
                 addElement3f(&rawNormals, &nSize, 1.0f, x, y, z, nc);
                 nc++;
             }
+            if (id == 't')
+            {
+                y = 1 - y;
+                addElement3f(&rawTexCoords, &tSize, 1.0f, x, y, z, tc);
+                tc++;
+            }
         }
         else if (sscanf (line, "f %i/%i/%i %i/%i/%i %i/%i/%i",
                          &v1,&t1,&n1,&v2,&t2,&n2,&v3,&t3,&n3) > 0)
         {
-            addFace(&rawFaces, &fSize, v1, v2, v3, n1, n2, n3, fc);
+            addFace(&rawFaces, &fSize, v1, v2, v3, n1, n2, n3, t1, t2, t3, fc);
             fc++;
         }
     }
-    processData(model, fc);
+    processData(model, fc, tc);
 #if MODEL_DEBUG
 	printf("vCount: %i\n", model -> vCount);
     printf("Finished loading model %s\n\n", filePath);
@@ -223,12 +236,23 @@ Model* readModel (const char *filePath, GLfloat scale)
 
 void drawModel (Model *model, vec3 position)
 {
+    glEnable(GL_TEXTURE_2D);
+    
+    //glBindTexture(GL_TEXTURE_2D, model -> texture);
+    
     glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
+    
+    glTexCoordPointer(3, GL_FLOAT, 0, model -> texCoords);
     glVertexPointer(3, GL_FLOAT, 0, model -> vertices);
     glNormalPointer(GL_FLOAT, 0, model -> normals);
+    
     glDrawArrays(GL_TRIANGLES, 0, model -> vCount);
+    
     glDisableClientState(GL_NORMAL_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_2D);
 }
 #endif

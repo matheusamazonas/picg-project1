@@ -64,11 +64,11 @@ void init (void)
 	model1 -> size = model1Size;
 	//model2 = readModel (model2Path, model2Scale);
 	//model2 -> size = model2Size;
+    
+    // Textures
+	configTextMode();
 
 	readInput();
-
-	// Textures
-	configTextMode();
 
 #if LIGHT
 	//MATERIAL
@@ -82,8 +82,8 @@ void init (void)
 
 	// Light
 	GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
-	GLfloat light_diffuse[] = {0.7, 0.7, 0.7, 1.0};
-	GLfloat light_ambient[] = {0.3, 0.3, 0.3, 1.0};
+	GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat light_ambient[] = {0.7, 0.7, 0.7, 0.0};
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);

@@ -27,13 +27,13 @@ GLuint windowSizeX        = 800,
        windowSizeY        = 600;
 GLfloat camSpeed 		  = 0.2f;
 GLfloat mouseSpeed        = 0.0055f;
-GLfloat roomSize 		  = 2.0f;
-GLfloat model1Scale       = 0.1f;
+GLfloat roomSize 		  = 1.0f;
+GLfloat model1Scale       = 0.2f;
 GLfloat model2Scale       = 1.0f;
 GLfloat model1Size        = 5.0f;
 GLfloat model2Size        = 1.0f;
 
-const char* texName       = "textures/texture.bmp";
+const char* texName       = "models/spider_text.bmp";
 const char* model1Path    = "models/spider01.obj";
 const char* model2Path    = "models/spider01.obj";
 
@@ -47,16 +47,19 @@ vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);
 
 GLFWwindow* window;
 
+#ifndef MODEL
+#include "model.hpp"
+#endif
+
+Model *model1;
+Model *model2;
+
 #ifndef TEXTURE
 #include "texture.hpp"
 #endif
 
 #ifndef WALL
 #include "wall.hpp"
-#endif
-
-#ifndef MODEL
-#include "model.hpp"
 #endif
 
 #ifndef OBJECT
@@ -74,6 +77,7 @@ GLFWwindow* window;
 #ifndef INPUT
 #include "input.hpp"
 #endif
+
 
 
 

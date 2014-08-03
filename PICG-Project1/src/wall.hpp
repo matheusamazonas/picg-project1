@@ -55,10 +55,11 @@ void drawWall (Wall wall)
 	};
 
 	glEnable(GL_TEXTURE_2D);
+    
+    glBindTexture(GL_TEXTURE_2D, roomTex);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
 
 	//associa dados aos arrays
 	glTexCoordPointer(2, GL_FLOAT, 0, texels);
