@@ -1,5 +1,11 @@
+// ---------------- main.hpp ----------------||
+//         Author: Matheus A C de Andrade    ||
+//           Just good old main.cpp          ||
+// ------------------------------------------||
+
 #include "common.hpp"
 
+// Makes MVP matrices changes based on input
 void computeVectorsFromInputs ()
 {
 	// glfwGetTime is called only once, the first time this function is called
@@ -25,9 +31,7 @@ void computeVectorsFromInputs ()
 			);
     vec3 cameraDirection = cameraPos + cameraTarget;
     
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
+    // Changes the projection matrix base don camera data
 	glMatrixMode(GL_PROJECTION);
     mat4 projection = perspective(45.0f, 4.0f / 3.0f, 0.1f, 400.0f);
     mat4 view = lookAt(cameraPos, cameraDirection, cameraUp);
@@ -42,49 +46,60 @@ void computeVectorsFromInputs ()
 #endif
 }
 
+// The display function that is called at each frame
 void display (void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(0.7, 0.7, 0.7);
 
+    // Makes MVP matrices changes based on input
 	computeVectorsFromInputs();
     
+    // The drawing.
 	drawGrid(grid);
     
 	glFlush();
 }
 
+// Initialization. Models, textures, program input and graphics definitions
 void init (void)
 {
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 
+    // Model loading based on each scale
 	model1 = readModel (model1Path, model1Scale);
 	model1 -> size = model1Size;
 	model2 = readModel (model2Path, model2Scale);
 	model2 -> size = model2Size;
     
-    // Textures
+    // Textures configuration in general
 	configTextMode();
 
+    // Read the program input (not user input) to determinw hoe many rooms
+    //  and theirs objects will be drawn
 	readInput();
 
-#if LIGHT
-	// Light
-	GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
-	GLfloat light_diffuse[] = {0.9, 0.9, 0.9, 0.0};
-	GLfloat light_ambient[] = {1.4, 1.4, 1.4, 0.0};
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-#endif
+	// Light. The light switch is made in the input.cpp.
+    // Switch it pressing the key L. Do it!
+    if (light)
+    {
+        GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
+        GLfloat light_diffuse[] = {0.9, 0.9, 0.9, 0.0};
+        GLfloat light_ambient[] = {1.4, 1.4, 1.4, 0.0};
+        glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+        glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+    }
 
 	glEnable(GL_DEPTH_TEST);
 
 	glShadeModel(GL_SMOOTH);
 }
 
+
+// MAIN!!
 int main (int argc, char** argv) 
 {
 	/* Initialize the library */
@@ -114,6 +129,7 @@ int main (int argc, char** argv)
 	printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
 #endif
 
+    // Initialization. Models, textures, program input
 	init();
 
 	/* Loop until the user closes the window */

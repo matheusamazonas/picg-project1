@@ -1,3 +1,8 @@
+// --------------- object.hpp ---------------||
+//         Author: Matheus A C de Andrade    ||
+//             Just defines objects          ||
+// ------------------------------------------||
+
 #ifndef OBJECT
 #define OBJECT
 

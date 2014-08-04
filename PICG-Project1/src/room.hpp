@@ -1,6 +1,14 @@
+// ---------------- room.hpp ----------------||
+//         Author: Matheus A C de Andrade    ||
+// Rooms that compose the grid and have      ||
+// elements                                  ||
+// ------------------------------------------||
+
 #ifndef ROOM
 #define ROOM
 
+// The room struct. Each room has a center, a size (n * n),
+//  walls and objects inside it.
 typedef struct
 {
 	vec3 center;
@@ -11,6 +19,7 @@ typedef struct
 	GLint obj2C;
 } Room; 
 
+// Add an object to the given room's object list (to the end)
 void addObject (Room *room, ObjectNode *obj)
 {
 	if (room -> objects -> next == NULL)
@@ -28,20 +37,29 @@ void addObject (Room *room, ObjectNode *obj)
 	}
 }
 
+// This is called during the progrma input session. It places objects
+//  randomly based on its size and how many objects it should have of
+//  each type (1 or 2). the placement is a grid placement, placing
+//  columns first
 void placeObjects(Room *room)
 {
     vec3 startPoint = (room -> center) - (vec3(room -> size/2, 0, room -> size/2));
     startPoint += vec3(largeObjectSize/2, 0, largeObjectSize/2);
     
+    // Maximum numbers of rolls (and columns also) that the room can support
     int maxRolls = floor(roomSize / largeObjectSize);
     int totalObjects = room -> obj1C + room -> obj2C;
     
+    // While the numbers of objects created/placed is less than how many
+    //  we can to create, place new objects
     for (int i = 0; i < totalObjects; i++)
     {
         ObjectNode *newObj = (ObjectNode*) malloc(sizeof(ObjectNode));
         newObj -> next = NULL;
         newObj -> object = (Object*) malloc (sizeof(Object));
         
+        // Places either a obj1 or obj2. Made this just to place
+        //  them randomly. It's visually good.
         if (rand() % 2 == 0)
         {
             if (room -> obj1C > 0)
@@ -81,7 +99,9 @@ void placeObjects(Room *room)
     }
 }
 
-
+// Creates a room centered in a given point and with dimension (size * size)
+// This creation is dynamic. It creates a room with 3 walls placed based on
+//  its center and size. Nothing else.
 Room* createRoom (vec3 center, float size)
 {
 	GLfloat offset = size / 2;
@@ -140,7 +160,7 @@ Room* createRoom (vec3 center, float size)
 	return room; 	
 }
 
-
+// Draws a room by simply calling each wall and object draw method
 void drawRoom (Room *room)
 {
 	WallNode *current = room -> walls;

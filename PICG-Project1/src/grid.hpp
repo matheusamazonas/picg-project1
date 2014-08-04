@@ -1,6 +1,13 @@
+// ---------------- grid.hpp ----------------||
+//         Author: Matheus A C de Andrade    ||
+//             Just defines objects          ||
+// ------------------------------------------||
+
 #ifndef GRID
 #define GRID 
 
+// A GridNode as an element of the Grid. It just contains a room
+//  and the next element.
 typedef struct gridNode 
 {
 	Room *room;
@@ -9,15 +16,20 @@ typedef struct gridNode
 
 void addRoom (GridNode*, Room*);
 
+// The grid itself (empty list head) and its center
 GridNode *grid;
-vec3 center;
+vec3 gridCenter;
 
+// Method that creates a grid based on the number of rooms and the
+//  room size (same for all the rooms). The grid will be always
+//  created starting on its center
 GridNode* createGrid (int rooms, float roomSize)
 {
+    // The grid dimension (dimension x dimension) so the grid is
+    //  as "squared" as possible
 	GLint gridDimension = ceil(sqrt (rooms));
-	center = vec3(gridDimension/2, -0.1f, gridDimension/2);
+	gridCenter = vec3(gridDimension/2, -0.1f, gridDimension/2);
 	GLint elementsCreated = 0;
-	vec3 gridStart = vec3(0.0f, 0.0f, 0.0f);
 
 	grid = (GridNode*) malloc(sizeof(GridNode));
 	grid -> next = NULL;
@@ -25,16 +37,18 @@ GridNode* createGrid (int rooms, float roomSize)
 	GridNode *current = grid;
 	current -> next = NULL;
 	
+    // Starts to create the grid for real. Creates as many rooms were
+    //  requested, always keeping them 1-roomSize apart from each other
 	for (int i = 0; i < gridDimension ; i++)
 	{
 		for (int j = 0; j < gridDimension & elementsCreated < rooms; j++)
 		{
-			vec3 center = vec3 (
-					gridStart.x + 2 * i * roomSize,
-					gridStart.y,
-					gridStart.z + 2 * j * roomSize
+			vec3 roomCenter = vec3 (
+					gridCenter.x + 2 * i * roomSize,
+					gridCenter.y,
+					gridCenter.z + 2 * j * roomSize
 					);
-			Room *room = createRoom(center, roomSize);
+			Room *room = createRoom(roomCenter, roomSize);
 			if (room == NULL)
 			{
 				printf("Error while creating room\n");
@@ -46,6 +60,8 @@ GridNode* createGrid (int rooms, float roomSize)
 	return grid;
 }
 
+// Adds a room to the given Grid. Just to remember that the
+//  first gridNode is the empty head
 void addRoom (GridNode *grid, Room *room)
 {
 	GridNode *newNode = (GridNode*) malloc(sizeof(GridNode));
@@ -70,13 +86,14 @@ void addRoom (GridNode *grid, Room *room)
 #endif	
 }
 
+// Draws an empty plane underneath the rooms using vertex array
 void drawPlane ()
 {
 	GLfloat vertices[12] = {
-		center.x - planeSize, center.y, center.z - planeSize,
-		center.x + planeSize, center.y, center.z - planeSize,
-		center.x + planeSize, center.y, center.z + planeSize,
-		center.x - planeSize, center.y, center.z + planeSize 
+		gridCenter.x - planeSize, gridCenter.y - 1, gridCenter.z - planeSize,
+		gridCenter.x + planeSize, gridCenter.y - 1, gridCenter.z - planeSize,
+		gridCenter.x + planeSize, gridCenter.y - 1, gridCenter.z + planeSize,
+		gridCenter.x - planeSize, gridCenter.y - 1, gridCenter.z + planeSize
 	};
 
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -85,6 +102,8 @@ void drawPlane ()
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
+// Draws a grid simply by drawing the plane and running on the rooms list
+//  and drawing each room. Simple like that.
 void drawGrid (GridNode *grid)
 {
 	drawPlane();

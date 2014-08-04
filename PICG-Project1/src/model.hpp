@@ -1,6 +1,16 @@
+// --------------- model.hpp ----------------||
+//         Author: Matheus A C de Andrade    ||
+// Model loading and rendering. I don't want ||
+// to scare anyone, but modify this file only||
+// if you really know what you're doing. Most||
+// of the implementation time was spent here.||
+// ------------------------------------------||
+
 #ifndef MODEL
 #define MODEL
 
+// A model consists of its vertices (points), normals (say how light
+//  will affect that face) and the texture mapping.
 typedef struct model
 {
 	GLfloat *vertices;
@@ -14,16 +24,31 @@ typedef struct model
     GLuint texture;
 } Model;
 
-
+// File pointer used to load the model files (.obj)
 FILE *fptr;
+// The models shared through the application. Even though there are
+//  several objects, all the objects from the same model shares the
+//  model struct with the others. Because, you know, memory.
 Model *model1;
 Model *model2;
 
+// The raw data for all the model elements. First note that only here
+//  we have the faces. That's because they are not sent to the OpenGL
+//  Draw call. They are useful only to reorganize the other elements
+//  to their correct order. After that, the faces are useless. Second
+//  remember that the elements in the model file are not in the order
+//  they should be sent to the OpenGL Draw call. They are in the most
+//  condensed and smallest representation possible.
 GLfloat *rawVertices;
 GLint *rawFaces;
 GLfloat *rawNormals;
 GLfloat *rawTexCoords;
 
+void processData (Model *model, GLint size, int tCount);
+
+// Addes 3 floats elements to the given list and increases its size if
+//  needed. It really adds a vector3 (x,y,z). used to add vertices,
+//  texture coordinates (they are 3f in the .obj file) and normals.
 void addElement3f (GLfloat **list, GLint *size, float scale, float x, float y, float z, GLint position)
 {
     int index = position * 3;
@@ -45,6 +70,8 @@ void addElement3f (GLfloat **list, GLint *size, float scale, float x, float y, f
 #endif
 }
 
+// Addes a face to the faces list and increases its size if needed. Remember
+//  that each face has 3 vertices, 3 normals and 3 texture coordinates
 void addFace (GLint **faces, GLint *size, int v1, int v2, int v3, int n1, int n2, int n3, int t1, int t2, int t3 ,GLint position)
 {
     int index = position * 9;
@@ -73,6 +100,113 @@ void addFace (GLint **faces, GLint *size, int v1, int v2, int v3, int n1, int n2
 #endif
 }
 
+// Initializes a model. Open its file and check for erros, allocates memory
+//  to the raw components, and initializes variables and components
+void initialize (Model *model, const char* filePath, GLfloat scale)
+{
+    if ((fptr = fopen(filePath, "r")) == NULL)
+	{
+		printf("Error while opening file %s\n", filePath);
+        exit(-1);
+	}
+    
+    model -> vertices = NULL;
+    model -> normals = NULL;
+    model -> texCoords = NULL;
+	model -> vCount = 0;
+    model -> nCount = 0;
+    model -> tCount = 0;
+	model -> scale = scale;
+	model -> size = 0;
+    // Allocates for the RAW elements
+    rawVertices  = (GLfloat*) calloc(100, sizeof(GLfloat));
+    rawNormals   = (GLfloat*) calloc(100, sizeof(GLfloat));
+    rawTexCoords = (GLfloat*) calloc(100, sizeof(GLfloat));
+    rawFaces = (GLint*) calloc (100, sizeof(GLint));
+#if MODEL_DEBUG
+	printf("Initialization for %s is over\n", filePath);
+#endif
+}
+
+// The reading model function itself. Loads a model located on the given
+//  path and scales it by the given factor
+//                  **** MAGIC HERE ****
+Model* readModel (const char *filePath, GLfloat scale)
+{
+	Model *model = (Model*) malloc(sizeof(Model));
+    initialize(model, filePath, scale);
+	
+    // Auxiliar variables used to read the model
+    GLint vc = 0;
+    GLint nc = 0;
+    GLint tc = 0;
+    GLint fc = 0;
+    GLint vSize = 0;
+    GLint nSize = 0;
+    GLint tSize = 0;
+    GLint fSize = 0;
+    
+    // Each fiel's line is placed in this variable
+    char *line = NULL;
+    size_t len = 0;
+    
+    while (getline (&line, &len, fptr) != -1)
+	{
+        
+        GLfloat x,y,z;
+        int v1,v2,v3,n1,n2,n3,t1,t2,t3;
+        char id;
+        
+        // Reads each line and check its type (vertice, normal, texture coordinates
+        //  or face, calls its correspondent add function and updates its counter
+        if (sscanf (line, "v%c %f %f %f\n", &id, &x, &y, &z) > 0)
+		{
+            if (id == ' ')
+            {
+                addElement3f(&rawVertices, &vSize, model -> scale, x, y, z, vc);
+                vc++;
+            }
+            if (id == 'n')
+            {
+                addElement3f(&rawNormals, &nSize, 1.0f, x, y, z, nc);
+                nc++;
+            }
+            if (id == 't')
+            {
+                y = 1 - y;
+                addElement3f(&rawTexCoords, &tSize, 1.0f, x, y, z, tc);
+                tc++;
+            }
+        }
+        else if (sscanf (line, "f %i/%i/%i %i/%i/%i %i/%i/%i",
+                         &v1,&t1,&n1,&v2,&t2,&n2,&v3,&t3,&n3) > 0)
+        {
+            addFace(&rawFaces, &fSize, v1, v2, v3, n1, n2, n3, t1, t2, t3, fc);
+            fc++;
+        }
+    }
+    // Proccess the Models's data. This is big.
+    processData(model, fc, tc);
+#if MODEL_DEBUG
+	printf("vCount: %i\n", model -> vCount);
+    printf("Finished loading model %s\n\n", filePath);
+#endif
+    // Frees memory and closes the model file
+    free(rawVertices);
+    free(rawNormals);
+    free(rawTexCoords);
+    free(rawFaces);
+    fclose(fptr);
+    return model;
+}
+
+// This is where most of the model processing is done. This is the
+//  complicated part. Based on the faces, the components are copied
+//  to the finao model array. The logic behind this is basically the
+//  OBJ file organization explanation. This is the function that most
+//  of the implementation was done and the tiniest change here may
+//  affect the whole application rendering dramatically. So change
+//  stuff here if you really know what you're doing
 void processData (Model *model, GLint size, int tCount)
 {
     model -> vertices  = (GLfloat*) calloc(size * 9, sizeof(GLfloat));
@@ -153,94 +287,9 @@ void processData (Model *model, GLint size, int tCount)
     }
 }
 
-void initialize (Model *model, const char* filePath, GLfloat scale)
-{
-    if ((fptr = fopen(filePath, "r")) == NULL)
-	{
-		printf("Error while opening file %s\n", filePath);
-        exit(-1);
-	}
-    
-    model -> vertices = NULL;
-    model -> normals = NULL;
-    model -> texCoords = NULL;
-	model -> vCount = 0;
-    model -> nCount = 0;
-    model -> tCount = 0;
-	model -> scale = scale;
-	model -> size = 0;
-    rawVertices  = (GLfloat*) calloc(100, sizeof(GLfloat));
-    rawNormals   = (GLfloat*) calloc(100, sizeof(GLfloat));
-    rawTexCoords = (GLfloat*) calloc(100, sizeof(GLfloat));
-    rawFaces = (GLint*) calloc (100, sizeof(GLint));
-#if MODEL_DEBUG
-	printf("Initialization for %s is over\n", filePath);
-#endif
-}
-
-Model* readModel (const char *filePath, GLfloat scale)
-{
-	Model *model = (Model*) malloc(sizeof(Model));
-    initialize(model, filePath, scale);
-	
-    GLint vc = 0;
-    GLint nc = 0;
-    GLint tc = 0;
-    GLint fc = 0;
-    GLint vSize = 0;
-    GLint nSize = 0;
-    GLint tSize = 0;
-    GLint fSize = 0;
-    
-    char *line = NULL;
-    size_t len = 0;
-    
-    while (getline (&line, &len, fptr) != -1)
-	{
-        
-        GLfloat x,y,z;
-        int v1,v2,v3,n1,n2,n3,t1,t2,t3;
-        char id;
-        
-        if (sscanf (line, "v%c %f %f %f\n", &id, &x, &y, &z) > 0)
-		{
-            if (id == ' ')
-            {
-                addElement3f(&rawVertices, &vSize, model -> scale, x, y, z, vc);
-                vc++;
-            }
-            if (id == 'n')
-            {
-                addElement3f(&rawNormals, &nSize, 1.0f, x, y, z, nc);
-                nc++;
-            }
-            if (id == 't')
-            {
-                y = 1 - y;
-                addElement3f(&rawTexCoords, &tSize, 1.0f, x, y, z, tc);
-                tc++;
-            }
-        }
-        else if (sscanf (line, "f %i/%i/%i %i/%i/%i %i/%i/%i",
-                         &v1,&t1,&n1,&v2,&t2,&n2,&v3,&t3,&n3) > 0)
-        {
-            addFace(&rawFaces, &fSize, v1, v2, v3, n1, n2, n3, t1, t2, t3, fc);
-            fc++;
-        }
-    }
-    processData(model, fc, tc);
-#if MODEL_DEBUG
-	printf("vCount: %i\n", model -> vCount);
-    printf("Finished loading model %s\n\n", filePath);
-#endif
-    free(rawVertices);
-    free(rawNormals);
-    free(rawTexCoords);
-    free(rawFaces);
-    fclose(fptr);
-    return model;
-}
-
+// Draw the given model at the given position. Since some room elements
+//  share the same model, we need to run through the vertices to update
+//  its  position with the element's position (2nd argument)
 void drawModel (Model *model, vec3 position)
 {
     GLfloat *vertices = (GLfloat*) calloc(model -> vCount*3, sizeof(GLfloat));
@@ -250,7 +299,8 @@ void drawModel (Model *model, vec3 position)
         vertices[i+1] = model -> vertices[i+1] + position.y;
         vertices[i+2] = model -> vertices[i+2] + position.z;
     }
-
+    
+    // All OpenGL calls to set the model drawing
     glEnable(GL_TEXTURE_2D);
     
     glBindTexture(GL_TEXTURE_2D, model -> texture);
@@ -269,6 +319,8 @@ void drawModel (Model *model, vec3 position)
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_TEXTURE_2D);
+    // This call is extremelly important and its deletion can result in serious
+    //  memory leak
     free(vertices);
 }
 #endif

@@ -1,9 +1,16 @@
+// --------------- texture.hpp --------------||
+//         Author: Matheus A C de Andrade    ||
+//                Loads textures             ||
+// ------------------------------------------||
+
 #ifndef TEXTURE
 #define TEXTURE
 
 GLuint texNames[3];
 GLint width, height;
 
+// Load the 3 textures our application has using SOIL
+// The textures names (ids) are sorred globally
 void configTextMode ()
 {
     unsigned char* roomImage;
@@ -12,7 +19,7 @@ void configTextMode ()
     
 	glGenTextures(3, texNames);
     
-    // Texture0 - Room Texture
+    // ------------- Texture0 - Room Texture ------------- //
     glBindTexture(GL_TEXTURE_2D, texNames[0]);
     roomImage = SOIL_load_image(roomTexPath, &width, &height, 0, SOIL_LOAD_RGB);
 	if(0 == texNames[0])
@@ -28,7 +35,7 @@ void configTextMode ()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, roomImage);
 
-    // Texture1 - Model1's Texture
+    // ------------- Texture1 - Model1's Texture ------------- //
     glBindTexture(GL_TEXTURE_2D, texNames[1]);
     model1Image = SOIL_load_image(model1TexPath, &width, &height, 0, SOIL_LOAD_RGB);
 	if(0 == texNames[1])
@@ -47,7 +54,7 @@ void configTextMode ()
     
     
     
-    // Texture2 - Model2's Texture
+    // ------------- Texture2 - Model2's Texture ------------- //
     glBindTexture(GL_TEXTURE_2D, texNames[2]);
     model2Image = SOIL_load_image(model2TexPath, &width, &height, 0, SOIL_LOAD_RGB);
 	if(0 == texNames[2])
