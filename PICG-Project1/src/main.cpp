@@ -8,13 +8,6 @@
 // Makes MVP matrices changes based on input
 void computeVectorsFromInputs ()
 {
-	// glfwGetTime is called only once, the first time this function is called
-	static double lastTime = glfwGetTime();
-
-	// Compute time difference between current and last frame
-	double currentTime = glfwGetTime();
-	deltaTime = (float)(currentTime - lastTime);
-
 	// Get mouse position
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
@@ -24,7 +17,7 @@ void computeVectorsFromInputs ()
 	verticalAngle   = mouseSpeed * (float)(windowSizeY/2 - ypos);
 
 	// Direction : Spherical coordinates to Cartesian coordinates conversion
-	cameraTarget = vec3 (
+	cameraTarget = vec3(
 			cos (verticalAngle) * sin(horizontalAngle),
 			sin(verticalAngle),
 			cos(verticalAngle) * cos(horizontalAngle)

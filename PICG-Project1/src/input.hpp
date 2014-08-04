@@ -38,25 +38,25 @@ void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
 		case GLFW_KEY_W:
 			if (action == GLFW_PRESS || action == GLFW_REPEAT)
 			{
-				cameraPos += cameraTarget * deltaTime * camSpeed * speedBoost;
+				cameraPos += cameraTarget * camSpeed * boostFactor;
 			}
 			break;
 		case GLFW_KEY_S:
 			if (action == GLFW_PRESS || action == GLFW_REPEAT)
 			{
-				cameraPos -= cameraTarget * deltaTime * camSpeed * speedBoost;
+				cameraPos -= cameraTarget * camSpeed * boostFactor;
 			}
 			break;
 		case GLFW_KEY_D:
 			if (action == GLFW_PRESS || action == GLFW_REPEAT)
 			{
-				cameraPos += right * deltaTime * camSpeed * speedBoost;
+				cameraPos += right * camSpeed * boostFactor;
 			}
 			break;
 		case GLFW_KEY_A:
 			if (action == GLFW_PRESS || action == GLFW_REPEAT)
 			{
-				cameraPos -= right * deltaTime * camSpeed * speedBoost;
+				cameraPos -= right * camSpeed * boostFactor;
 			}
 			break;
         case GLFW_KEY_L:
@@ -68,11 +68,11 @@ void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
         case GLFW_KEY_LEFT_SHIFT:
             if (action == GLFW_PRESS)
             {
-                speedBoost = 2.5f;
+                boostFactor = 3.0f;
             }
             else if (action == GLFW_RELEASE)
             {
-                speedBoost = 1.0f;
+                boostFactor = 1.0f;
             }
             break;
 	}
@@ -93,7 +93,7 @@ void keyboard (GLFWwindow* window, int key, int scancode, int action, int mods)
 //  for each object (there are only 2 object types in each room)
 void readInput ()
 {
-	GLint rooms;
+	GLint rooms = 50;
     // Reads the input to check how many rooms will be drawn
 	scanf("%i\n", &rooms);
     

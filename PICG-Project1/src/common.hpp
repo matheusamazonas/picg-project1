@@ -40,8 +40,8 @@ GLuint windowSizeX        = 800,
 
 // Cam speed (movement speed) and boost
 // Press Left Shift to boost speed!
-GLfloat camSpeed 		  = 0.2f;
-GLfloat speedBoost        = 1.0f;
+GLfloat camSpeed 		  = 1.2f;
+GLfloat boostFactor       = 1.0f;
 
 // Mouse speed (looking around)
 GLfloat mouseSpeed        = 0.0055f;
@@ -49,7 +49,7 @@ GLfloat mouseSpeed        = 0.0055f;
 // Room default size (nxn) and maximum numbers of rooms the
 //  application will accept
 GLfloat roomSize 		  = 50.0f;
-GLint   maxRooms          = 10;
+GLint   maxRooms          = 100;
 GLfloat planeSize         = 1000.0f;
 
 // Model scaling and size. Note that the only the scaling will
@@ -76,7 +76,6 @@ const char* model2TexPath = "textures/cat.bmp";
 // Angles and time used to calculate mouse movement
 GLfloat horizontalAngle   = 3.14f;
 GLfloat verticalAngle     = 0.0f;
-GLfloat deltaTime;
 
 // Camera's position, target and up vectors
 vec3 cameraPos = vec3(0.0f, 30.0f, 40.0f);
