@@ -57,7 +57,7 @@ GLfloat planeSize         = 1000.0f;
 //  to compute how many objects cann be placed  in a room
 GLfloat model1Scale       = 0.05f;
 GLfloat model2Scale       = 4.0f;
-GLfloat model1Size        = 5.0f;
+GLfloat model1Size        = 7.0f;
 GLfloat model2Size        = 1.0f;
 GLint largeObjectSize     = 1.0f;
 
