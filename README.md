@@ -43,6 +43,18 @@ Controls
 -------------
 * Keyboard: WSAD to move around, Left Shift for speed boost and L for light switching
 * Mouse: Just move it to look around
+* 
+
+Compiling and Running
+-------------
+With XCode it should be easy. Just to remember to link the libraries and headers otherwise it won't work. The libraries we need are listed here (Environment) and the lib/ folder has both SOIL and GLFW3 library files already. 
+
+To compile using g++ with the command line:
+```
+g++ main.cpp -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo -lSOIL -o main
+```
+We need Cocoa, IOKit and CoreVideo in order to use GLFW3. That should work.
+
 
 Sources
 -------------
